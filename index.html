@@ -403,23 +403,21 @@
 
     </main>
 
-    <!-- Script Interaktif -->
+    <!-- Script Interaktif & Database Google Sheets -->
     <script>
+        // URL Google Apps Script Anda yang sudah di-deploy
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzV6dhFwyGWELtt-0C9A69Ic9gcPsOOpCdxeKT6AdKGBx4RfPw7nh-7zjnHQwMQ4gRf6g/exec';
+
         // Fungsi untuk membuka undangan (menghilangkan cover)
         function openInvitation() {
             const cover = document.getElementById('cover-screen');
             const body = document.body;
             
-            // Tambahkan kelas untuk efek transisi ke atas
             cover.classList.add('hide-cover');
-            
-            // Kembalikan fungsi scroll pada halaman utama
             body.style.overflow = 'auto';
 
-            // Hapus elemen cover dari DOM setelah transisi selesai agar tidak mengganggu klik
             setTimeout(() => {
                 cover.style.display = 'none';
-                // Trigger scroll animation check immediately after opening
                 reveal();
             }, 1000);
         }
@@ -427,11 +425,9 @@
         // Fungsi Animasi Scroll (Reveal Elements)
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
-
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                // Elemen akan muncul ketika berada 150px dari bawah layar
                 var elementVisible = 100; 
 
                 if (elementTop < windowHeight - elementVisible) {
@@ -440,100 +436,129 @@
             }
         }
 
-        // Tambahkan event listener untuk scroll
         window.addEventListener("scroll", reveal);
-        
-        // Panggil sekali saat load (untuk elemen yang sudah ada di viewport jika ada)
-        // reveal(); // Dikomen karena akan dipanggil setelah tombol 'Buka Undangan' diklik
 
-        // Logika untuk Buku Tamu / RSVP Form
+        // Fungsi Escape HTML untuk keamanan
+        const escapeHTML = (str) => {
+            if (!str) return '';
+            return str.toString().replace(/[&<>'"]/g, 
+                tag => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag] || tag)
+            );
+        };
+
+        // Fungsi untuk memuat ucapan dari Google Sheets saat web dibuka
+        function loadMessages() {
+            if (!scriptURL) return;
+
+            fetch(scriptURL)
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('messages-container');
+                    
+                    // Bersihkan container tapi pertahankan judul h3
+                    const titleHTML = container.querySelector('h3').outerHTML;
+                    container.innerHTML = titleHTML;
+
+                    if (data.length === 0) {
+                        container.innerHTML += `<p class="text-sm text-gray-500 italic text-center py-4">Belum ada ucapan. Jadilah yang pertama memberikan ucapan!</p>`;
+                        return;
+                    }
+
+                    data.forEach(item => {
+                        const safeName = escapeHTML(item.name);
+                        const safeMessage = escapeHTML(item.message);
+                        const attendance = escapeHTML(item.attendance);
+                        
+                        let badgeHTML = '';
+                        if(attendance === 'Hadir') {
+                            badgeHTML = `<span class="text-[10px] md:text-xs px-3 py-1 bg-green-100 text-green-700 rounded-full font-semibold border border-green-200"><i class="fas fa-check mr-1"></i> Hadir</span>`;
+                        } else {
+                            badgeHTML = `<span class="text-[10px] md:text-xs px-3 py-1 bg-gray-100 text-gray-600 rounded-full font-semibold border border-gray-200"><i class="fas fa-times mr-1"></i> Tidak Hadir</span>`;
+                        }
+
+                        const initial = safeName.charAt(0).toUpperCase();
+
+                        const msgDiv = document.createElement('div');
+                        msgDiv.className = 'mb-4 p-5 bg-white rounded-xl shadow-sm border border-gray-100';
+                        msgDiv.innerHTML = `
+                            <div class="flex justify-between items-start mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-wedding-red/10 flex items-center justify-center text-wedding-red font-bold font-serif text-lg">
+                                        ${initial}
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-wedding-dark text-sm md:text-base">${safeName}</h4>
+                                        <p class="text-xs text-wedding-gold"><i class="far fa-clock mr-1"></i> Tersimpan</p>
+                                    </div>
+                                </div>
+                                ${badgeHTML}
+                            </div>
+                            <p class="text-sm md:text-base text-gray-700 italic font-serif leading-relaxed px-1">
+                                "${safeMessage.replace(/\n/g, '<br>')}"
+                            </p>
+                        `;
+                        container.appendChild(msgDiv);
+                    });
+                })
+                .catch(error => console.error('Gagal memuat ucapan:', error));
+        }
+
+        // Panggil fungsi muat ucapan saat halaman pertama kali dibuka
+        window.addEventListener('DOMContentLoaded', loadMessages);
+
+        // Logika Pengiriman Form ke Google Sheets
         document.getElementById('rsvp-form').addEventListener('submit', function(e) {
-            e.preventDefault(); // Mencegah form me-refresh halaman
+            e.preventDefault();
             
-            // Mengambil nilai dari form
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+            btn.disabled = true;
+
             const nameInput = document.getElementById('sender-name').value;
             const messageInput = document.getElementById('sender-message').value;
             const attendanceInput = document.querySelector('input[name="attendance"]:checked').value;
-            
-            // Fungsi sederhana untuk mencegah XSS (Cross-Site Scripting)
-            const escapeHTML = (str) => {
-                return str.replace(/[&<>'"]/g, 
-                    tag => ({
-                        '&': '&amp;',
-                        '<': '&lt;',
-                        '>': '&gt;',
-                        "'": '&#39;',
-                        '"': '&quot;'
-                    }[tag] || tag)
-                );
+
+            const formData = {
+                name: nameInput,
+                attendance: attendanceInput,
+                message: messageInput
             };
 
-            const safeName = escapeHTML(nameInput);
-            const safeMessage = escapeHTML(messageInput);
-            
-            // Membuat elemen ucapan baru
-            const msgDiv = document.createElement('div');
-            msgDiv.className = 'mb-4 p-5 bg-white rounded-xl shadow-sm border border-gray-100 animate-fade-in-up';
-            
-            // Menyesuaikan tampilan badge kehadiran
-            let badgeHTML = '';
-            if(attendanceInput === 'Hadir') {
-                badgeHTML = `<span class="text-[10px] md:text-xs px-3 py-1 bg-green-100 text-green-700 rounded-full font-semibold border border-green-200"><i class="fas fa-check mr-1"></i> Hadir</span>`;
-            } else {
-                badgeHTML = `<span class="text-[10px] md:text-xs px-3 py-1 bg-gray-100 text-gray-600 rounded-full font-semibold border border-gray-200"><i class="fas fa-times mr-1"></i> Tidak Hadir</span>`;
-            }
-
-            // Mengambil inisial nama untuk avatar
-            const initial = safeName.charAt(0).toUpperCase();
-
-            // Membangun struktur HTML untuk pesan baru
-            msgDiv.innerHTML = `
-                <div class="flex justify-between items-start mb-3">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-wedding-red/10 flex items-center justify-center text-wedding-red font-bold font-serif text-lg">
-                            ${initial}
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-wedding-dark text-sm md:text-base">${safeName}</h4>
-                            <p class="text-xs text-wedding-gold"><i class="far fa-clock mr-1"></i> Baru saja</p>
-                        </div>
-                    </div>
-                    ${badgeHTML}
-                </div>
-                <p class="text-sm md:text-base text-gray-700 italic font-serif leading-relaxed px-1">
-                    "${safeMessage.replace(/\n/g, '<br>')}"
-                </p>
-            `;
-            
-            // Menambahkan pesan baru ke bagian atas daftar
-            const container = document.getElementById('messages-container');
-            
-            // Masukkan setelah judul (H3)
-            const title = container.querySelector('h3');
-            if (title.nextSibling) {
-                container.insertBefore(msgDiv, title.nextSibling);
-            } else {
-                container.appendChild(msgDiv);
-            }
-            
-            // Scroll ke pesan baru dengan halus
-            msgDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            
-            // Reset form setelah berhasil dikirim
-            this.reset();
-            
-            // Menampilkan notifikasi sukses sederhana
-            const btn = this.querySelector('button[type="submit"]');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check-circle"></i> Terkirim!';
-            btn.classList.add('bg-green-600');
-            btn.classList.remove('bg-wedding-red');
-            
-            setTimeout(() => {
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(() => {
+                btn.innerHTML = '<i class="fas fa-check-circle"></i> Terkirim!';
+                btn.classList.add('bg-green-600');
+                btn.classList.remove('bg-wedding-red');
+                
+                this.reset();
+                setTimeout(() => {
+                    loadMessages();
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('bg-green-600');
+                    btn.classList.add('bg-wedding-red');
+                    btn.disabled = false;
+                }, 2000);
+            })
+            .catch(error => {
+                console.error('Error!', error);
+                alert('Gagal mengirim ucapan. Silakan coba lagi.');
                 btn.innerHTML = originalText;
-                btn.classList.remove('bg-green-600');
-                btn.classList.add('bg-wedding-red');
-            }, 3000);
+                btn.disabled = false;
+            });
         });
     </script>
 </body>
