@@ -54,10 +54,8 @@
 </head>
 <body class="font-sans text-wedding-dark antialiased">
 
-    <!-- AUDIO BACKGROUND -->
-    <audio id="bg-music" loop>
-        <source src="rungokno.mp3" type="audio/mp3">
-    </audio>
+    <!-- AUDIO BACKGROUND (Dioptimalkan langsung dengan atribut src dan preload) -->
+    <audio id="bg-music" src="rungokno.mp3" preload="auto" loop></audio>
 
     <!-- TOMBOL MUSIK MELAYANG -->
     <button id="music-btn" onclick="toggleMusic()" class="fixed bottom-6 right-6 z-40 w-12 h-12 bg-wedding-red text-wedding-gold rounded-full shadow-lg flex items-center justify-center border-2 border-wedding-gold hidden animate-spin-slow cursor-pointer hover:scale-110 transition-transform">
@@ -197,8 +195,13 @@
             cover.classList.add('hide-cover');
             document.body.style.overflow = 'auto';
 
-            music.play().catch(error => console.log("Audio play blocked:", error));
-            musicBtn.classList.remove('hidden');
+            // Memutar musik dengan aman setelah interaksi klik tombol
+            music.play().then(() => {
+                musicBtn.classList.remove('hidden');
+            }).catch(error => {
+                console.log("Audio play blocked:", error);
+                musicBtn.classList.remove('hidden');
+            });
 
             setTimeout(() => {
                 cover.style.display = 'none';
