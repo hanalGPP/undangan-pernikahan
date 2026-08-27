@@ -187,48 +187,46 @@
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzX70lSs6ASMfStXi_pHEBWhcx5jIlP1mbtoD_pX5iN6f8KhxMGR2UBqgTTu6XCTh6kag/exec';
 
+        let autoScrollInterval;
         let isAutoScrolling = false;
-        let autoScrollAnimation;
 
-        // Fungsi Auto Gulir Perlahan (Slow Auto Scroll)
+        // Fungsi Auto Gulir Perlahan (Stable Auto Scroll)
         function startSlowAutoScroll() {
             isAutoScrolling = true;
 
-            // Berhenti jika pengguna menyentuh layar / scroll manual
-            const stopAutoScroll = () => {
+            const stopScroll = () => {
                 if (isAutoScrolling) {
                     isAutoScrolling = false;
-                    cancelAnimationFrame(autoScrollAnimation);
-                    window.removeEventListener('wheel', stopAutoScroll);
-                    window.removeEventListener('touchstart', stopAutoScroll);
-                    window.removeEventListener('mousedown', stopAutoScroll);
+                    clearInterval(autoScrollInterval);
+                    window.removeEventListener('wheel', stopScroll);
+                    window.removeEventListener('touchstart', stopScroll);
+                    window.removeEventListener('mousedown', stopScroll);
                 }
             };
 
-            window.addEventListener('wheel', stopAutoScroll, { passive: true });
-            window.addEventListener('touchstart', stopAutoScroll, { passive: true });
-            window.addEventListener('mousedown', stopAutoScroll, { passive: true });
+            // Berhenti otomatis jika tamu menyentuh/menggulir layar secara manual
+            window.addEventListener('wheel', stopScroll, { passive: true });
+            window.addEventListener('touchstart', stopScroll, { passive: true });
+            window.addEventListener('mousedown', stopScroll, { passive: true });
 
-            function scrollStep() {
-                if (!isAutoScrolling) return;
-
-                // Berhenti jika sudah sampai di paling bawah halaman
-                if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 10) {
-                    isAutoScrolling = false;
-                    return;
-                }
-
-                // Kecepatan gulir (angka 0.8 bisa diubah: semakin kecil semakin lambat & halus)
-                window.scrollBy(0, 0.8); 
-                autoScrollAnimation = requestAnimationFrame(scrollStep);
-            }
-
-            // Mulai auto scroll setelah jeda kecil agar transisi cover selesai
             setTimeout(() => {
-                if (isAutoScrolling) {
-                    autoScrollAnimation = requestAnimationFrame(scrollStep);
-                }
-            }, 1200);
+                if (!isAutoScrolling) return;
+                
+                autoScrollInterval = setInterval(() => {
+                    if (!isAutoScrolling) {
+                        clearInterval(autoScrollInterval);
+                        return;
+                    }
+
+                    // Gulir ke bawah sebanyak 1 pixel setiap 25 milidetik (halus & stabil)
+                    window.scrollBy(0, 1);
+
+                    // Berhenti jika sudah sampai paling bawah halaman
+                    if ((window.innerHeight + window.pageYOffset) >= document.documentElement.scrollHeight - 5) {
+                        stopScroll();
+                    }
+                }, 25);
+            }, 1000);
         }
 
         function openInvitation() {
@@ -247,7 +245,7 @@
                 musicBtn.classList.remove('hidden');
             });
 
-            // Aktifkan fitur auto-scroll perlahan
+            // Mulai auto scroll
             startSlowAutoScroll();
 
             setTimeout(() => {
