@@ -59,7 +59,7 @@
         <source src="rungokno.mp3" type="audio/mp3">
     </audio>
 
-    <!-- TOMBOL MUSIK MELAYANG (Floating Button) -->
+    <!-- TOMBOL MUSIK MELAYANG -->
     <button id="music-btn" onclick="toggleMusic()" class="fixed bottom-6 right-6 z-40 w-12 h-12 bg-wedding-red text-wedding-gold rounded-full shadow-lg flex items-center justify-center border-2 border-wedding-gold hidden animate-spin-slow cursor-pointer hover:scale-110 transition-transform">
         <i id="music-icon" class="fas fa-music text-lg"></i>
     </button>
@@ -185,11 +185,10 @@
         </section>
     </main>
 
-    <!-- SCRIPT MUSIK & GOOGLE SHEETS -->
+    <!-- SCRIPT UTAMA -->
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzX70lSs6ASMfStXi_pHEBWhcx5jIlP1mbtoD_pX5iN6f8KhxMGR2UBqgTTu6XCTh6kag/exec';
 
-        // Fungsi untuk membuka undangan & memutar musik
         function openInvitation() {
             const cover = document.getElementById('cover-screen');
             const music = document.getElementById('bg-music');
@@ -198,9 +197,8 @@
             cover.classList.add('hide-cover');
             document.body.style.overflow = 'auto';
 
-            // Putar musik
             music.play().catch(error => console.log("Audio play blocked:", error));
-            musicBtn.classList.remove('hidden'); // Tampilkan tombol musik di pojok
+            musicBtn.classList.remove('hidden');
 
             setTimeout(() => {
                 cover.style.display = 'none';
@@ -208,7 +206,6 @@
             }, 1000);
         }
 
-        // Fungsi Kontrol Tombol Musik (Play / Pause)
         function toggleMusic() {
             const music = document.getElementById('bg-music');
             const musicBtn = document.getElementById('music-btn');
@@ -260,7 +257,7 @@
                             </div>
                             <p class="text-sm md:text-base text-gray-700 italic font-serif">"${item.message}"</p>
                         `;
-                        container.appendChild(msg`Div` -> container.appendChild(msgDiv);) // fixed syntax safety below
+                        container.appendChild(msgDiv);
                     });
                 })
                 .catch(err => console.error('Gagal memuat:', err));
@@ -277,7 +274,7 @@
             const formData = {
                 name: document.getElementById('sender-name').value,
                 attendance: document.querySelector('input[name="attendance"]:checked').value,
-                    message: document.getElementById('sender-message').value
+                message: document.getElementById('sender-message').value
             };
 
             fetch(scriptURL, {
