@@ -44,8 +44,8 @@
         html { scroll-behavior: smooth; }
         body { background-color: #F9F6F0; overflow: hidden; }
         .bg-pattern { background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c5a059' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
-        .cover-overlay { background: linear-gradient(to bottom, rgba(26, 26, 26, 0.3), rgba(26, 26, 26, 0.8)); }
-        .section-overlay { background: linear-gradient(to bottom, rgba(122, 19, 21, 0.85), rgba(26, 26, 26, 0.95)); }
+        .cover-bg { background: linear-gradient(135deg, #1a1a1a 0%, #2c1616 50%, #1a1a1a 100%); }
+        .gold-border { border: 1px solid rgba(197, 160, 89, 0.3); }
         .gold-text-gradient { background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C); -webkit-background-clip: text; background-clip: text; color: transparent; }
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
@@ -63,22 +63,39 @@
         <i id="music-icon" class="fas fa-music text-lg"></i>
     </button>
 
-    <!-- COVER SCREEN -->
-    <div id="cover-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-wedding-dark">
-        <div class="absolute inset-0 w-full h-full">
-            <img src="image_ae678c.jpg" alt="Cover" class="w-full h-full object-cover object-center opacity-60">
-            <div class="absolute inset-0 cover-overlay"></div>
-        </div>
-        <div class="relative z-10 text-center px-6 flex flex-col items-center justify-center h-full w-full">
-            <p class="text-wedding-light tracking-[0.3em] uppercase text-xs md:text-sm mb-4 font-semibold">The Wedding Of</p>
-            <h1 class="font-script text-6xl md:text-8xl lg:text-9xl text-wedding-light mb-2 drop-shadow-lg">
+    <!-- COVER SCREEN (Dengan Ornamen Pola Emas & Tanpa Error Gambar Patah) -->
+    <div id="cover-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center cover-bg bg-pattern">
+        <div class="absolute inset-0 bg-black/40"></div>
+
+        <!-- Bingkai Ornamen Elegan -->
+        <div class="relative z-10 m-4 p-8 md:p-12 max-w-lg w-full text-center gold-border rounded-2xl backdrop-blur-sm bg-black/30 shadow-2xl flex flex-col items-center justify-center">
+            
+            <!-- Ornamen Bunga / Floral Hiasan Atas -->
+            <div class="text-wedding-gold text-2xl mb-3 opacity-90">
+                <i class="fas fa-spa"></i>
+            </div>
+
+            <p class="text-wedding-light tracking-[0.3em] uppercase text-xs md:text-sm mb-3 font-semibold">The Wedding Of</p>
+            
+            <h1 class="font-script text-6xl md:text-7xl lg:text-8xl text-wedding-light mb-2 drop-shadow-lg">
                 Yadi <span class="text-wedding-gold">&</span> Lilis
             </h1>
-            <p class="text-wedding-light/80 font-serif text-lg md:text-xl italic mt-4 mb-12">11 & 13 September 2026</p>
-            <button onclick="openInvitation()" class="mt-8 px-8 py-3 bg-wedding-red/90 hover:bg-wedding-red text-wedding-light rounded-full border border-wedding-gold/50 transition-all duration-300 shadow-[0_0_15px_rgba(197,160,89,0.3)] flex items-center gap-2 group animate-bounce">
+            
+            <div class="w-16 h-[1px] bg-wedding-gold my-4 mx-auto"></div>
+
+            <p class="text-wedding-light/90 font-serif text-lg md:text-xl italic mb-8">
+                11 & 13 September 2026
+            </p>
+
+            <button onclick="openInvitation()" class="px-8 py-3 bg-wedding-red/90 hover:bg-wedding-red text-wedding-light rounded-full border border-wedding-gold/50 transition-all duration-300 shadow-[0_0_15px_rgba(197,160,89,0.3)] flex items-center gap-2 group animate-bounce cursor-pointer">
                 <i class="fas fa-envelope-open-text"></i>
                 <span class="font-serif tracking-wider uppercase text-sm font-semibold">Buka Undangan</span>
             </button>
+
+            <!-- Ornamen Bunga / Floral Hiasan Bawah -->
+            <div class="text-wedding-gold text-2xl mt-6 opacity-90 rotate-180">
+                <i class="fas fa-spa"></i>
+            </div>
         </div>
     </div>
 
@@ -191,7 +208,6 @@
         let autoScrollInterval;
         let isAutoScrolling = false;
 
-        // Fungsi Auto Gulir Perlahan (Stable Auto Scroll)
         function startSlowAutoScroll() {
             isAutoScrolling = true;
 
@@ -205,12 +221,10 @@
                 }
             };
 
-            // Berhenti otomatis jika tamu menyentuh/menggulir layar secara manual
             window.addEventListener('wheel', stopScroll, { passive: true });
             window.addEventListener('touchstart', stopScroll, { passive: true });
             window.addEventListener('mousedown', stopScroll, { passive: true });
 
-            // Tunggu hingga cover benar-benar hilang (1.2 detik)
             setTimeout(() => {
                 if (!isAutoScrolling) return;
                 
@@ -220,10 +234,8 @@
                         return;
                     }
 
-                    // Gulir ke bawah sebanyak 2 pixel setiap 30 milidetik
                     window.scrollBy({ top: 2, behavior: 'auto' });
 
-                    // Berhenti jika sudah sampai paling bawah halaman
                     if ((window.innerHeight + window.pageYOffset) >= document.documentElement.scrollHeight - 5) {
                         stopScroll();
                     }
@@ -239,7 +251,6 @@
             cover.classList.add('hide-cover');
             document.body.style.overflow = 'auto';
 
-            // Memutar musik
             music.play().then(() => {
                 musicBtn.classList.remove('hidden');
             }).catch(error => {
@@ -247,7 +258,6 @@
                 musicBtn.classList.remove('hidden');
             });
 
-            // Mulai auto scroll
             startSlowAutoScroll();
 
             setTimeout(() => {
@@ -322,7 +332,7 @@
             btn.disabled = true;
 
             const formData = {
-                name: document.getElementById('sender-name').value,
+                name: document.getElementById('sender-name-input') ? document.getElementById('sender-name-input').value : document.getElementById('sender-name').value,
                 attendance: document.querySelector('input[name="attendance"]:checked').value,
                 message: document.getElementById('sender-message').value
             };
