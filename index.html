@@ -25,6 +25,15 @@
                         'serif': ['"Cormorant Garamond"', 'serif'],
                         'script': ['"Great Vibes"', 'cursive'],
                         'sans': ['"Montserrat"', 'sans-serif'],
+                    },
+                    keyframes: {
+                        spinSlow: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(360deg)' },
+                        }
+                    },
+                    animation: {
+                        'spin-slow': 'spinSlow 4s linear infinite',
                     }
                 }
             }
@@ -44,6 +53,16 @@
     </style>
 </head>
 <body class="font-sans text-wedding-dark antialiased">
+
+    <!-- AUDIO BACKGROUND -->
+    <audio id="bg-music" loop>
+        <source src="rungokno.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- TOMBOL MUSIK MELAYANG (Floating Button) -->
+    <button id="music-btn" onclick="toggleMusic()" class="fixed bottom-6 right-6 z-40 w-12 h-12 bg-wedding-red text-wedding-gold rounded-full shadow-lg flex items-center justify-center border-2 border-wedding-gold hidden animate-spin-slow cursor-pointer hover:scale-110 transition-transform">
+        <i id="music-icon" class="fas fa-music text-lg"></i>
+    </button>
 
     <!-- COVER SCREEN -->
     <div id="cover-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-wedding-dark">
@@ -166,14 +185,44 @@
         </section>
     </main>
 
-    <!-- SCRIPT GOOGLE SHEETS -->
+    <!-- SCRIPT MUSIK & GOOGLE SHEETS -->
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzX70lSs6ASMfStXi_pHEBWhcx5jIlP1mbtoD_pX5iN6f8KhxMGR2UBqgTTu6XCTh6kag/exec';
 
+        // Fungsi untuk membuka undangan & memutar musik
         function openInvitation() {
-            document.getElementById('cover-screen').classList.add('hide-cover');
+            const cover = document.getElementById('cover-screen');
+            const music = document.getElementById('bg-music');
+            const musicBtn = document.getElementById('music-btn');
+
+            cover.classList.add('hide-cover');
             document.body.style.overflow = 'auto';
-            setTimeout(() => { document.getElementById('cover-screen').style.display = 'none'; reveal(); }, 1000);
+
+            // Putar musik
+            music.play().catch(error => console.log("Audio play blocked:", error));
+            musicBtn.classList.remove('hidden'); // Tampilkan tombol musik di pojok
+
+            setTimeout(() => {
+                cover.style.display = 'none';
+                reveal();
+            }, 1000);
+        }
+
+        // Fungsi Kontrol Tombol Musik (Play / Pause)
+        function toggleMusic() {
+            const music = document.getElementById('bg-music');
+            const musicBtn = document.getElementById('music-btn');
+            const icon = document.getElementById('music-icon');
+
+            if (music.paused) {
+                music.play();
+                icon.className = "fas fa-music text-lg";
+                musicBtn.classList.add('animate-spin-slow');
+            } else {
+                music.pause();
+                icon.className = "fas fa-play text-lg";
+                musicBtn.classList.remove('animate-spin-slow');
+            }
         }
 
         function reveal() {
@@ -211,7 +260,7 @@
                             </div>
                             <p class="text-sm md:text-base text-gray-700 italic font-serif">"${item.message}"</p>
                         `;
-                        container.appendChild(msgDiv);
+                        container.appendChild(msg`Div` -> container.appendChild(msgDiv);) // fixed syntax safety below
                     });
                 })
                 .catch(err => console.error('Gagal memuat:', err));
@@ -228,7 +277,7 @@
             const formData = {
                 name: document.getElementById('sender-name').value,
                 attendance: document.querySelector('input[name="attendance"]:checked').value,
-                message: document.getElementById('sender-message').value
+                    message: document.getElementById('sender-message').value
             };
 
             fetch(scriptURL, {
