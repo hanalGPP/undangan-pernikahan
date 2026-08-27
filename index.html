@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan: Yadi & Lilis</title>
+    
+    <!-- Memuat Tailwind CSS untuk styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Memuat Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Memuat FontAwesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Konfigurasi Tailwind Custom Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'wedding-red': '#7A1315',
+                        'wedding-gold': '#C5A059',
+                        'wedding-dark': '#1A1A1A',
+                        'wedding-light': '#F9F6F0',
+                    },
+                    fontFamily: {
+                        'serif': ['"Cormorant Garamond"', 'serif'],
+                        'script': ['"Great Vibes"', 'cursive'],
+                        'sans': ['"Montserrat"', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom CSS untuk efek dan utilitas tambahan */
+        body {
+            background-color: #F9F6F0; /* wedding-light */
+            overflow: hidden; /* Mencegah scroll saat cover aktif */
+        }
+        
+        .bg-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c5a059' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .cover-overlay {
+            background: linear-gradient(to bottom, rgba(26, 26, 26, 0.3), rgba(26, 26, 26, 0.8));
+        }
+
+        .section-overlay {
+            background: linear-gradient(to bottom, rgba(122, 19, 21, 0.85), rgba(26, 26, 26, 0.95));
+        }
+
+        .gold-text-gradient {
+            background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Kelas untuk elemen yang akan dianimasikan saat scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Transisi untuk cover screen */
+        #cover-screen {
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+        }
+        .hide-cover {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="font-sans text-wedding-dark antialiased">
+
+    <!-- COVER SCREEN (Tampil pertama kali) -->
+    <div id="cover-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-wedding-dark">
+        <!-- Background Image for Cover -->
+        <div class="absolute inset-0 w-full h-full">
+            <img src="image_ae678c.jpg" alt="Prewedding Cover" class="w-full h-full object-cover object-center opacity-60">
+            <div class="absolute inset-0 cover-overlay"></div>
+        </div>
+
+        <!-- Cover Content -->
+        <div class="relative z-10 text-center px-6 flex flex-col items-center justify-center h-full w-full">
+            <p class="text-wedding-light tracking-[0.3em] uppercase text-xs md:text-sm mb-4 font-semibold">The Wedding Of</p>
+            
+            <h1 class="font-script text-6xl md:text-8xl lg:text-9xl text-wedding-light mb-2 drop-shadow-lg">
+                Yadi <span class="text-wedding-gold">&</span> Lilis
+            </h1>
+            
+            <p class="text-wedding-light/80 font-serif text-lg md:text-xl italic mt-4 mb-12">
+                11 & 13 September 2026
+            </p>
+
+            <button onclick="openInvitation()" class="mt-8 px-8 py-3 bg-wedding-red/90 hover:bg-wedding-red text-wedding-light rounded-full border border-wedding-gold/50 transition-all duration-300 shadow-[0_0_15px_rgba(197,160,89,0.3)] hover:shadow-[0_0_25px_rgba(197,160,89,0.6)] flex items-center gap-2 group animate-bounce">
+                <i class="fas fa-envelope-open-text group-hover:scale-110 transition-transform"></i>
+                <span class="font-serif tracking-wider uppercase text-sm font-semibold">Buka Undangan</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT WRPPER (Disembunyikan overflow-nya di awal) -->
+    <main id="main-content" class="relative bg-pattern min-h-screen">
+
+        <!-- HEADER / INTRO SECTION -->
+        <section class="py-20 px-6 text-center reveal">
+            <div class="max-w-3xl mx-auto">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Basmala.svg" alt="Bismillah" class="h-12 mx-auto mb-8 opacity-80" onerror="this.style.display='none'">
+                <p class="font-serif italic text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+                    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir."
+                </p>
+                <p class="font-sans font-semibold text-wedding-red text-sm tracking-widest">(QS. Ar-Rum: 21)</p>
+            </div>
+        </section>
+
+        <!-- COUPLE SECTION -->
+        <section class="py-16 px-6 bg-white relative overflow-hidden">
+            <!-- Dekorasi background -->
+            <div class="absolute top-0 left-0 w-32 h-32 bg-wedding-red rounded-br-full opacity-5"></div>
+            <div class="absolute bottom-0 right-0 w-40 h-40 bg-wedding-gold rounded-tl-full opacity-10"></div>
+
+            <div class="max-w-5xl mx-auto relative z-10">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="font-script text-5xl md:text-6xl text-wedding-red mb-2">Mempelai</h2>
+                    <div class="w-24 h-1 bg-wedding-gold mx-auto rounded-full"></div>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-8 lg:gap-16">
+                    
+                    <!-- Mempelai Pria -->
+                    <div class="text-center md:w-5/12 reveal flex flex-col items-center">
+                        <div class="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-wedding-gold shadow-xl mb-6 relative">
+                            <!-- Foto profil Muhammad Yadi diperbarui -->
+                            <img src="E:\Ainun job\2026\08 AGUSTUS\22\web undangan yadi dan lilis\yadi.png" alt="Muhammad Yadi" class="w-full h-full object-cover object-[center_top]" onerror="this.src='https://placehold.co/400x400/7A1315/F9F6F0?text=Muhammad+Yadi'">
+                        </div>
+                        <h3 class="font-serif font-bold text-2xl md:text-3xl text-wedding-dark mb-2">Muhammad Yadi</h3>
+                        <p class="font-sans text-sm text-gray-600 mb-4 font-semibold text-wedding-gold tracking-wide">Putra dari</p>
+                        <p class="font-serif text-gray-800 mb-1">Bapak Sholeh Tharom & Ibu Nuriyanah</p>
+                        <p class="font-sans text-xs text-gray-500 max-w-xs mx-auto leading-relaxed mt-2">
+                            <i class="fas fa-home text-wedding-red/50 mr-1"></i> Desa Randu Padangan RT 13 / RW 05,<br>Kec. Menganti, Kab. Gresik
+                        </p>
+                    </div>
+
+                    <!-- Pemisah (Dan / &) -->
+                    <div class="hidden md:flex flex-col items-center justify-center w-2/12 reveal">
+                        <span class="font-script text-6xl text-wedding-gold drop-shadow-md">&</span>
+                    </div>
+                    <div class="md:hidden reveal">
+                        <span class="font-script text-5xl text-wedding-gold">&</span>
+                    </div>
+
+                    <!-- Mempelai Wanita -->
+                    <div class="text-center md:w-5/12 reveal flex flex-col items-center">
+                        <div class="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-wedding-gold shadow-xl mb-6 relative">
+                            <!-- Foto profil Lilis Laili Fitria diperbarui -->
+                            <img src="E:\Ainun job\2026\08 AGUSTUS\22\web undangan yadi dan lilis\lilis.png" alt="Lilis Laili Fitria" class="w-full h-full object-cover object-[center_top]" onerror="this.src='https://placehold.co/400x400/7A1315/F9F6F0?text=Lilis+Laili+Fitria'">
+                        </div>
+                        <h3 class="font-serif font-bold text-2xl md:text-3xl text-wedding-dark mb-2">Lilis Laili Fitria</h3>
+                        <p class="font-sans text-sm text-gray-600 mb-4 font-semibold text-wedding-gold tracking-wide">Putri dari</p>
+                        <p class="font-serif text-gray-800 mb-1">Bapak Moch. Rais Situju & Ibu Samiayah</p>
+                        <p class="font-sans text-xs text-gray-500 max-w-xs mx-auto leading-relaxed mt-2">
+                            <i class="fas fa-home text-wedding-red/50 mr-1"></i> Dusun Balun RT 01 / RW 01 Desa Sidodadi,<br>Kec. Candi Kab. Sidoarjo
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- EVENT DETAILS SECTION -->
+        <section class="py-20 relative bg-wedding-dark text-wedding-light">
+            <!-- Background Image with Overlay -->
+            <div class="absolute inset-0 w-full h-full">
+                <img src="image_ae6792.jpg" alt="Background Event" class="w-full h-full object-cover opacity-30 fixed-bg hidden md:block">
+                <div class="absolute inset-0 section-overlay"></div>
+            </div>
+
+            <div class="max-w-6xl mx-auto px-6 relative z-10">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="font-script text-5xl md:text-6xl text-wedding-gold mb-2 drop-shadow-md">Rangkaian Acara</h2>
+                    <p class="font-serif text-lg text-wedding-light/80">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                    
+                    <!-- Card Akad Nikah -->
+                    <div class="bg-white/10 backdrop-blur-sm border border-wedding-gold/30 rounded-2xl p-8 text-center shadow-[0_8px_30px_rgb(0,0,0,0.2)] transform transition hover:-translate-y-2 duration-300 reveal">
+                        <div class="w-16 h-16 mx-auto bg-wedding-gold/20 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-ring text-3xl text-wedding-gold"></i>
+                        </div>
+                        <h3 class="font-serif font-bold text-2xl md:text-3xl mb-4 gold-text-gradient">Akad Nikah</h3>
+                        
+                        <div class="py-4 border-y border-wedding-gold/20 mb-6 font-sans space-y-2">
+                            <p class="text-lg md:text-xl font-semibold tracking-wide">Jumat</p>
+                            <p class="text-3xl md:text-4xl font-bold text-wedding-gold">11</p>
+                            <p class="text-lg md:text-xl font-semibold tracking-wide">September 2026</p>
+                        </div>
+                        
+                        <p class="font-serif text-sm opacity-80 mt-4 italic">
+                            *Waktu & Tempat Pelaksanaan Menyesuaikan
+                        </p>
+                    </div>
+
+                    <!-- Card Resepsi -->
+                    <div class="bg-white/10 backdrop-blur-sm border border-wedding-gold/30 rounded-2xl p-8 text-center shadow-[0_8px_30px_rgb(0,0,0,0.2)] transform transition hover:-translate-y-2 duration-300 reveal">
+                        <div class="w-16 h-16 mx-auto bg-wedding-red/40 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-glass-cheers text-3xl text-wedding-light"></i>
+                        </div>
+                        <h3 class="font-serif font-bold text-2xl md:text-3xl mb-4 gold-text-gradient">Resepsi Pernikahan</h3>
+                        
+                        <div class="py-4 border-y border-wedding-gold/20 mb-6 font-sans space-y-2">
+                            <p class="text-lg md:text-xl font-semibold tracking-wide">Minggu</p>
+                            <p class="text-3xl md:text-4xl font-bold text-wedding-gold">13</p>
+                            <p class="text-lg md:text-xl font-semibold tracking-wide">September 2026</p>
+                        </div>
+
+                        <p class="font-serif text-sm opacity-80 mt-4 italic">
+                            *Waktu & Tempat Pelaksanaan Menyesuaikan
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY SECTION -->
+        <section class="py-20 px-4 md:px-8 bg-white">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12 reveal">
+                    <h2 class="font-script text-5xl md:text-6xl text-wedding-red mb-2">Galeri Momen</h2>
+                    <div class="w-24 h-1 bg-wedding-gold mx-auto rounded-full"></div>
+                </div>
+
+                <!-- Grid Galeri -->
+                <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="group relative overflow-hidden rounded-lg shadow-md aspect-[3/4] reveal">
+                        <img src="E:\Ainun job\2026\08 AGUSTUS\22\web undangan yadi dan lilis\galeri1.jpeg" alt="Gallery 1" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" onerror="this.src='https://placehold.co/400x600/7A1315/F9F6F0?text=Foto+1'">
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                    </div>
+                    
+                    <div class="group relative overflow-hidden rounded-lg shadow-md aspect-[3/4] reveal">
+                        <img src="E:\Ainun job\2026\08 AGUSTUS\22\web undangan yadi dan lilis\galeri2.jpeg" alt="Gallery 2" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" onerror="this.src='https://placehold.co/400x600/7A1315/F9F6F0?text=Foto+2'">
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-lg shadow-md aspect-[3/4] reveal">
+                        <img src="E:\Ainun job\2026\08 AGUSTUS\22\web undangan yadi dan lilis\galeri3.jpeg" alt="Gallery 3" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" onerror="this.src='https://placehold.co/400x600/7A1315/F9F6F0?text=Foto+3'">
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-lg shadow-md aspect-[3/4] reveal">
+                        <img src="E:\Ainun job\2026\08 AGUSTUS\22\web undangan yadi dan lilis\galeri4.jpeg" alt="Gallery 4" class="w-full h-full object-cover transition duration-500 group-hover:scale-110" onerror="this.src='https://placehold.co/400x600/7A1315/F9F6F0?text=Foto+4'">
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP & WISHES SECTION -->
+        <section class="py-20 px-4 md:px-8 bg-wedding-light relative">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12 reveal">
+                    <h2 class="font-script text-5xl md:text-6xl text-wedding-red mb-2">Ucapan & Doa</h2>
+                    <div class="w-24 h-1 bg-wedding-gold mx-auto rounded-full mb-6"></div>
+                    <p class="font-serif text-lg text-gray-700">Tinggalkan pesan, doa, serta konfirmasi kehadiran Anda pada acara kami.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] overflow-hidden reveal border border-gray-100">
+                    <div class="p-6 md:p-10 border-b border-gray-100">
+                        <form id="rsvp-form" class="space-y-6">
+                            <!-- Input Nama -->
+                            <div>
+                                <label for="sender-name" class="block font-sans text-sm font-semibold text-wedding-dark mb-2">Nama Lengkap</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <i class="fas fa-user text-gray-400"></i>
+                                    </div>
+                                    <input type="text" id="sender-name" required class="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-300 focus:border-wedding-gold focus:ring-2 focus:ring-wedding-gold/30 outline-none transition-all duration-300" placeholder="Masukkan nama Anda">
+                                </div>
+                            </div>
+                            
+                            <!-- Input Kehadiran -->
+                            <div>
+                                <label class="block font-sans text-sm font-semibold text-wedding-dark mb-2">Konfirmasi Kehadiran</label>
+                                <div class="flex gap-4">
+                                    <label class="flex-1 cursor-pointer">
+                                        <input type="radio" name="attendance" value="Hadir" required class="peer sr-only">
+                                        <div class="text-center px-4 py-3 border border-gray-300 rounded-xl peer-checked:bg-wedding-gold peer-checked:text-white peer-checked:border-wedding-gold transition-all duration-300 hover:bg-gray-50 flex items-center justify-center gap-2">
+                                            <i class="fas fa-check-circle opacity-0 peer-checked:opacity-100 absolute hidden peer-checked:block"></i>
+                                            <span class="peer-checked:ml-6">Hadir</span>
+                                        </div>
+                                    </label>
+                                    <label class="flex-1 cursor-pointer">
+                                        <input type="radio" name="attendance" value="Tidak Hadir" class="peer sr-only">
+                                        <div class="text-center px-4 py-3 border border-gray-300 rounded-xl peer-checked:bg-gray-500 peer-checked:text-white peer-checked:border-gray-500 transition-all duration-300 hover:bg-gray-50">
+                                            Tidak Hadir
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Input Pesan -->
+                            <div>
+                                <label for="sender-message" class="block font-sans text-sm font-semibold text-wedding-dark mb-2">Pesan & Doa</label>
+                                <textarea id="sender-message" required rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-wedding-gold focus:ring-2 focus:ring-wedding-gold/30 outline-none transition-all duration-300 resize-none" placeholder="Tuliskan harapan dan doa terbaik untuk kedua mempelai..."></textarea>
+                            </div>
+
+                            <!-- Tombol Submit -->
+                            <button type="submit" class="w-full py-4 bg-wedding-red hover:bg-[#5a0e10] text-wedding-light font-bold rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-wedding-red/30 group">
+                                <i class="fas fa-paper-plane group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform"></i> 
+                                <span class="tracking-wider uppercase text-sm">Kirim Ucapan</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Daftar Ucapan -->
+                    <div class="bg-gray-50 p-6 md:p-10 max-h-[500px] overflow-y-auto custom-scrollbar" id="messages-container">
+                        <h3 class="font-sans font-bold text-wedding-dark mb-6 flex items-center gap-2">
+                            <i class="fas fa-comments text-wedding-gold"></i> Papan Ucapan
+                        </h3>
+                        
+                        <!-- Dummy Message 1 -->
+                        <div class="mb-4 p-5 bg-white rounded-xl shadow-sm border border-gray-100">
+                            <div class="flex justify-between items-start mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-wedding-gold/20 flex items-center justify-center text-wedding-gold font-bold font-serif text-lg">
+                                        B
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-wedding-dark text-sm md:text-base">Budi & Keluarga</h4>
+                                        <p class="text-xs text-gray-400"><i class="far fa-clock mr-1"></i> Beberapa saat yang lalu</p>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] md:text-xs px-3 py-1 bg-green-100 text-green-700 rounded-full font-semibold border border-green-200">
+                                    <i class="fas fa-check mr-1"></i> Hadir
+                                </span>
+                            </div>
+                            <p class="text-sm md:text-base text-gray-700 italic font-serif leading-relaxed px-1">
+                                "Selamat menempuh hidup baru Mas Yadi dan Mbak Lilis. Semoga menjadi keluarga yang sakinah, mawaddah, warahmah, dan lekas diberi momongan. Aamiin."
+                            </p>
+                        </div>
+                        
+                        <!-- Tempat Pesan Baru Akan Muncul -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CLOSING SECTION -->
+        <section class="py-24 relative flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 w-full h-full bg-wedding-red">
+                <div class="absolute inset-0 bg-pattern opacity-30"></div>
+            </div>
+            
+            <div class="relative z-10 text-center px-6 max-w-2xl mx-auto reveal">
+                <p class="font-serif text-wedding-gold text-lg md:text-xl italic mb-6">
+                    "Doa restu Anda merupakan karunia yang sangat berarti bagi kami."
+                </p>
+                <h2 class="font-script text-5xl md:text-7xl text-white mb-6 drop-shadow-md">Terima Kasih</h2>
+                <p class="font-sans text-wedding-light/80 text-sm md:text-base uppercase tracking-[0.2em]">
+                    Kami yang berbahagia
+                </p>
+                <h3 class="font-serif font-bold text-2xl text-wedding-gold mt-4">
+                    Keluarga Bpk. Sholeh Tharom & Ibu Nuriyanah
+                </h3>
+                <h3 class="font-serif font-bold text-2xl text-wedding-gold mt-1 mb-8">
+                    Keluarga Bpk. Moch. Rais Situju & Ibu Samiayah
+                </h3>
+                <h1 class="font-script text-4xl md:text-5xl text-white">
+                    Yadi & Lilis
+                </h1>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="bg-wedding-dark text-center py-6 border-t border-white/10">
+            <p class="font-sans text-xs text-gray-500">&copy; 2026 Undangan Pernikahan Yadi & Lilis. All Rights Reserved.</p>
+        </footer>
+
+    </main>
+
+    <!-- Script Interaktif -->
+    <script>
+        // Fungsi untuk membuka undangan (menghilangkan cover)
+        function openInvitation() {
+            const cover = document.getElementById('cover-screen');
+            const body = document.body;
+            
+            // Tambahkan kelas untuk efek transisi ke atas
+            cover.classList.add('hide-cover');
+            
+            // Kembalikan fungsi scroll pada halaman utama
+            body.style.overflow = 'auto';
+
+            // Hapus elemen cover dari DOM setelah transisi selesai agar tidak mengganggu klik
+            setTimeout(() => {
+                cover.style.display = 'none';
+                // Trigger scroll animation check immediately after opening
+                reveal();
+            }, 1000);
+        }
+
+        // Fungsi Animasi Scroll (Reveal Elements)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                // Elemen akan muncul ketika berada 150px dari bawah layar
+                var elementVisible = 100; 
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        // Tambahkan event listener untuk scroll
+        window.addEventListener("scroll", reveal);
+        
+        // Panggil sekali saat load (untuk elemen yang sudah ada di viewport jika ada)
+        // reveal(); // Dikomen karena akan dipanggil setelah tombol 'Buka Undangan' diklik
+
+        // Logika untuk Buku Tamu / RSVP Form
+        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Mencegah form me-refresh halaman
+            
+            // Mengambil nilai dari form
+            const nameInput = document.getElementById('sender-name').value;
+            const messageInput = document.getElementById('sender-message').value;
+            const attendanceInput = document.querySelector('input[name="attendance"]:checked').value;
+            
+            // Fungsi sederhana untuk mencegah XSS (Cross-Site Scripting)
+            const escapeHTML = (str) => {
+                return str.replace(/[&<>'"]/g, 
+                    tag => ({
+                        '&': '&amp;',
+                        '<': '&lt;',
+                        '>': '&gt;',
+                        "'": '&#39;',
+                        '"': '&quot;'
+                    }[tag] || tag)
+                );
+            };
+
+            const safeName = escapeHTML(nameInput);
+            const safeMessage = escapeHTML(messageInput);
+            
+            // Membuat elemen ucapan baru
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'mb-4 p-5 bg-white rounded-xl shadow-sm border border-gray-100 animate-fade-in-up';
+            
+            // Menyesuaikan tampilan badge kehadiran
+            let badgeHTML = '';
+            if(attendanceInput === 'Hadir') {
+                badgeHTML = `<span class="text-[10px] md:text-xs px-3 py-1 bg-green-100 text-green-700 rounded-full font-semibold border border-green-200"><i class="fas fa-check mr-1"></i> Hadir</span>`;
+            } else {
+                badgeHTML = `<span class="text-[10px] md:text-xs px-3 py-1 bg-gray-100 text-gray-600 rounded-full font-semibold border border-gray-200"><i class="fas fa-times mr-1"></i> Tidak Hadir</span>`;
+            }
+
+            // Mengambil inisial nama untuk avatar
+            const initial = safeName.charAt(0).toUpperCase();
+
+            // Membangun struktur HTML untuk pesan baru
+            msgDiv.innerHTML = `
+                <div class="flex justify-between items-start mb-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-wedding-red/10 flex items-center justify-center text-wedding-red font-bold font-serif text-lg">
+                            ${initial}
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-wedding-dark text-sm md:text-base">${safeName}</h4>
+                            <p class="text-xs text-wedding-gold"><i class="far fa-clock mr-1"></i> Baru saja</p>
+                        </div>
+                    </div>
+                    ${badgeHTML}
+                </div>
+                <p class="text-sm md:text-base text-gray-700 italic font-serif leading-relaxed px-1">
+                    "${safeMessage.replace(/\n/g, '<br>')}"
+                </p>
+            `;
+            
+            // Menambahkan pesan baru ke bagian atas daftar
+            const container = document.getElementById('messages-container');
+            
+            // Masukkan setelah judul (H3)
+            const title = container.querySelector('h3');
+            if (title.nextSibling) {
+                container.insertBefore(msgDiv, title.nextSibling);
+            } else {
+                container.appendChild(msgDiv);
+            }
+            
+            // Scroll ke pesan baru dengan halus
+            msgDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Reset form setelah berhasil dikirim
+            this.reset();
+            
+            // Menampilkan notifikasi sukses sederhana
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check-circle"></i> Terkirim!';
+            btn.classList.add('bg-green-600');
+            btn.classList.remove('bg-wedding-red');
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.remove('bg-green-600');
+                btn.classList.add('bg-wedding-red');
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
