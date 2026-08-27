@@ -54,7 +54,7 @@
 </head>
 <body class="font-sans text-wedding-dark antialiased">
 
-    <!-- AUDIO BACKGROUND (Dioptimalkan langsung dengan atribut src dan preload) -->
+    <!-- AUDIO BACKGROUND -->
     <audio id="bg-music" src="rungokno.mp3" preload="auto" loop></audio>
 
     <!-- TOMBOL MUSIK MELAYANG -->
@@ -187,6 +187,50 @@
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzX70lSs6ASMfStXi_pHEBWhcx5jIlP1mbtoD_pX5iN6f8KhxMGR2UBqgTTu6XCTh6kag/exec';
 
+        let isAutoScrolling = false;
+        let autoScrollAnimation;
+
+        // Fungsi Auto Gulir Perlahan (Slow Auto Scroll)
+        function startSlowAutoScroll() {
+            isAutoScrolling = true;
+
+            // Berhenti jika pengguna menyentuh layar / scroll manual
+            const stopAutoScroll = () => {
+                if (isAutoScrolling) {
+                    isAutoScrolling = false;
+                    cancelAnimationFrame(autoScrollAnimation);
+                    window.removeEventListener('wheel', stopAutoScroll);
+                    window.removeEventListener('touchstart', stopAutoScroll);
+                    window.removeEventListener('mousedown', stopAutoScroll);
+                }
+            };
+
+            window.addEventListener('wheel', stopAutoScroll, { passive: true });
+            window.addEventListener('touchstart', stopAutoScroll, { passive: true });
+            window.addEventListener('mousedown', stopAutoScroll, { passive: true });
+
+            function scrollStep() {
+                if (!isAutoScrolling) return;
+
+                // Berhenti jika sudah sampai di paling bawah halaman
+                if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 10) {
+                    isAutoScrolling = false;
+                    return;
+                }
+
+                // Kecepatan gulir (angka 0.8 bisa diubah: semakin kecil semakin lambat & halus)
+                window.scrollBy(0, 0.8); 
+                autoScrollAnimation = requestAnimationFrame(scrollStep);
+            }
+
+            // Mulai auto scroll setelah jeda kecil agar transisi cover selesai
+            setTimeout(() => {
+                if (isAutoScrolling) {
+                    autoScrollAnimation = requestAnimationFrame(scrollStep);
+                }
+            }, 1200);
+        }
+
         function openInvitation() {
             const cover = document.getElementById('cover-screen');
             const music = document.getElementById('bg-music');
@@ -195,13 +239,16 @@
             cover.classList.add('hide-cover');
             document.body.style.overflow = 'auto';
 
-            // Memutar musik dengan aman setelah interaksi klik tombol
+            // Memutar musik
             music.play().then(() => {
                 musicBtn.classList.remove('hidden');
             }).catch(error => {
                 console.log("Audio play blocked:", error);
                 musicBtn.classList.remove('hidden');
             });
+
+            // Aktifkan fitur auto-scroll perlahan
+            startSlowAutoScroll();
 
             setTimeout(() => {
                 cover.style.display = 'none';
