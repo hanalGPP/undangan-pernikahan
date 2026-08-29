@@ -1,77 +1,41 @@
 ```html
-<!-- ... existing code ... -->
-        function stepAutoScroll(timestamp) {
-            if (!isAutoScrolling) return;
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wedding Of Yadi & Lilis</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- QRCode Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-            if (!lastScrollTime) lastScrollTime = timestamp;
-            const deltaTime = timestamp - lastScrollTime;
-            lastScrollTime = timestamp;
-
-            // Cap delta time to prevent giant jumps if tab loses focus
-            const cappedDelta = Math.min(deltaTime, 50);
-            
-            // Kecepatan sedang (medium speed)
-            const scrollSpeed = window.innerWidth < 768 ? 0.15 : 0.10; 
-            const scrollAmount = scrollSpeed * cappedDelta;
-
-            window.scrollBy({ top: scrollAmount, behavior: 'auto' });
-            
-            if ((window.innerHeight + window.pageYOffset) >= document.documentElement.scrollHeight - 5) {
-                stopAutoScroll();
-            } else {
-                scrollAnimFrame = requestAnimationFrame(stepAutoScroll);
-            }
-        }
-<!-- ... existing code ... -->
-        function openInvitation() {
-            const cover = document.getElementById('cover-screen');
-            const music = document.getElementById('bg-music');
-            const musicBtn = document.getElementById('music-btn');
-            const autoScrollBtn = document.getElementById('autoscroll-btn');
-            const bottomNav = document.getElementById('bottom-nav');
-
-            cover.classList.add('hide-cover');
-            document.body.style.overflow = 'auto';
-            bottomNav.classList.remove('translate-y-full');
-
-            music.play().then(() => {
-                musicBtn.classList.remove('hidden');
-            }).catch(error => {
-                console.log("Audio play blocked:", error);
-                musicBtn.classList.remove('hidden');
-            });
-
-            autoScrollBtn.classList.remove('hidden');
-
-            setTimeout(() => {
-                cover.style.display = 'none';
-                reveal();
-                // Mulai auto-scroll otomatis SETELAH cover sepenuhnya hilang
-                startAutoScroll();
-            }, 1000);
-        }
-
-        function toggleMusic() {
-<!-- ... existing code ... -->
-            .catch(err => {
-                console.error('Error saat mengirim:', err);
-                btn.innerHTML = 'Gagal Mengirim. Coba Lagi';
-                btn.disabled = false;
-            });
-        });
-
-        // Fitur tambahan: Hentikan auto-scroll jika pengguna melakukan scroll manual
-        window.addEventListener('wheel', () => {
-            if (isAutoScrolling) stopAutoScroll();
-        }, { passive: true });
-
-        window.addEventListener('touchstart', () => {
-            if (isAutoScrolling) stopAutoScroll();
-        }, { passive: true });
-    </script>
-</body>
-</html>
-```                        scrollGallery: {
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'wedding-red': '#7A1315',
+                        'wedding-gold': '#C5A059',
+                        'wedding-dark': '#1A1A1A',
+                        'wedding-light': '#F9F6F0',
+                    },
+                    fontFamily: {
+                        'serif': ['"Cormorant Garamond"', 'serif'],
+                        'script': ['"Great Vibes"', 'cursive'],
+                        'sans': ['"Montserrat"', 'sans-serif'],
+                    },
+                    keyframes: {
+                        spinSlow: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(360deg)' },
+                        },
+                        scrollGallery: {
                             '0%': { transform: 'translateX(0)' },
                             '100%': { transform: 'translateX(-50%)' },
                         }
@@ -234,33 +198,6 @@
                     <h2 class="font-script text-5xl md:text-6xl text-wedding-dark tracking-wide">Yadi <span class="text-wedding-gold">&</span> Lilis</h2>
                 </div>
 
-                <!-- GALERI MOMEN (DIPINDAH KE BAWAH NAMA YADI & LILIS) -->
-                <div class="py-8 w-full overflow-hidden reveal">
-                    <div class="text-center mb-10">
-                        <h2 class="font-script text-5xl md:text-6xl text-wedding-red mb-2">Galeri Momen</h2>
-                        <div class="w-24 h-1 bg-wedding-gold mx-auto rounded-full"></div>
-                    </div>
-                    <div class="relative w-full overflow-hidden pb-4">
-                        <div class="absolute inset-y-0 left-0 w-8 md:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-                        <div class="absolute inset-y-0 right-0 w-8 md:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
-                        
-                        <div class="flex w-max animate-scroll-gallery hover:[animation-play-state:paused] cursor-pointer">
-                            <div class="flex gap-4 px-2">
-                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri1.jpeg" alt="Galeri 1" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+1'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri2.jpeg" alt="Galeri 2" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+2'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri3.jpeg" alt="Galeri 3" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+3'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri4.jpeg" alt="Galeri 4" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+4'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                            </div>
-                            <div class="flex gap-4 px-2">
-                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri1.jpeg" alt="Galeri 1" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+1'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri2.jpeg" alt="Galeri 2" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+2'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri3.jpeg" alt="Galeri 3" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+3'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri4.jpeg" alt="Galeri 4" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+4'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- BRIDE -->
                 <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16 reveal">
                     <div class="w-full md:w-1/2 flex flex-col items-center order-1 relative pt-8">
@@ -289,6 +226,35 @@
                     </div>
                 </div>
 
+            </div>
+        </section>
+
+        <!-- GALERI MOMEN SECTION -->
+        <section id="galeri" class="py-20 bg-white relative overflow-hidden">
+            <div class="w-full overflow-hidden reveal">
+                <div class="text-center mb-10">
+                    <h2 class="font-script text-5xl md:text-6xl text-wedding-red mb-2">Galeri Momen</h2>
+                    <div class="w-24 h-1 bg-wedding-gold mx-auto rounded-full"></div>
+                </div>
+                <div class="relative w-full overflow-hidden pb-4">
+                    <div class="absolute inset-y-0 left-0 w-8 md:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+                    <div class="absolute inset-y-0 right-0 w-8 md:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+                    
+                    <div class="flex w-max animate-scroll-gallery hover:[animation-play-state:paused] cursor-pointer">
+                        <div class="flex gap-4 px-2">
+                            <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri1.jpeg" alt="Galeri 1" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+1'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                            <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri2.jpeg" alt="Galeri 2" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+2'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                            <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri3.jpeg" alt="Galeri 3" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+3'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                            <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri4.jpeg" alt="Galeri 4" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+4'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                        </div>
+                        <div class="flex gap-4 px-2">
+                            <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri1.jpeg" alt="Galeri 1" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+1'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                            <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri2.jpeg" alt="Galeri 2" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+2'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                            <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri3.jpeg" alt="Galeri 3" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+3'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                            <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri4.jpeg" alt="Galeri 4" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+4'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -568,8 +534,8 @@
             // Cap delta time to prevent giant jumps if tab loses focus
             const cappedDelta = Math.min(deltaTime, 50);
             
-            // Kecepatan 2x dengan pergerakan halus berbasis delta waktu untuk menghilangkan getar
-            const scrollSpeed = window.innerWidth < 768 ? 0.32 : 0.22; 
+            // Kecepatan sedang (medium speed)
+            const scrollSpeed = window.innerWidth < 768 ? 0.15 : 0.10; 
             const scrollAmount = scrollSpeed * cappedDelta;
 
             window.scrollBy({ top: scrollAmount, behavior: 'auto' });
@@ -629,11 +595,12 @@
             });
 
             autoScrollBtn.classList.remove('hidden');
-            startAutoScroll();
 
             setTimeout(() => {
                 cover.style.display = 'none';
                 reveal();
+                // Mulai auto-scroll otomatis SETELAH cover sepenuhnya hilang
+                startAutoScroll();
             }, 1000);
         }
 
@@ -752,6 +719,16 @@
                 btn.disabled = false;
             });
         });
+
+        // Fitur tambahan: Hentikan auto-scroll jika pengguna melakukan scroll manual
+        window.addEventListener('wheel', () => {
+            if (isAutoScrolling) stopAutoScroll();
+        }, { passive: true });
+
+        window.addEventListener('touchstart', () => {
+            if (isAutoScrolling) stopAutoScroll();
+        }, { passive: true });
     </script>
 </body>
 </html>
+```
