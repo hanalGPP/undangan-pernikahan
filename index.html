@@ -1,40 +1,77 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Wedding Of Yadi & Lilis</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- QRCode Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+```html
+<!-- ... existing code ... -->
+        function stepAutoScroll(timestamp) {
+            if (!isAutoScrolling) return;
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'wedding-red': '#7A1315',
-                        'wedding-gold': '#C5A059',
-                        'wedding-dark': '#1A1A1A',
-                        'wedding-light': '#F9F6F0',
-                    },
-                    fontFamily: {
-                        'serif': ['"Cormorant Garamond"', 'serif'],
-                        'script': ['"Great Vibes"', 'cursive'],
-                        'sans': ['"Montserrat"', 'sans-serif'],
-                    },
-                    keyframes: {
-                        spinSlow: {
-                            '0%': { transform: 'rotate(0deg)' },
-                            '100%': { transform: 'rotate(360deg)' },
-                        },
-                        scrollGallery: {
+            if (!lastScrollTime) lastScrollTime = timestamp;
+            const deltaTime = timestamp - lastScrollTime;
+            lastScrollTime = timestamp;
+
+            // Cap delta time to prevent giant jumps if tab loses focus
+            const cappedDelta = Math.min(deltaTime, 50);
+            
+            // Kecepatan sedang (medium speed)
+            const scrollSpeed = window.innerWidth < 768 ? 0.15 : 0.10; 
+            const scrollAmount = scrollSpeed * cappedDelta;
+
+            window.scrollBy({ top: scrollAmount, behavior: 'auto' });
+            
+            if ((window.innerHeight + window.pageYOffset) >= document.documentElement.scrollHeight - 5) {
+                stopAutoScroll();
+            } else {
+                scrollAnimFrame = requestAnimationFrame(stepAutoScroll);
+            }
+        }
+<!-- ... existing code ... -->
+        function openInvitation() {
+            const cover = document.getElementById('cover-screen');
+            const music = document.getElementById('bg-music');
+            const musicBtn = document.getElementById('music-btn');
+            const autoScrollBtn = document.getElementById('autoscroll-btn');
+            const bottomNav = document.getElementById('bottom-nav');
+
+            cover.classList.add('hide-cover');
+            document.body.style.overflow = 'auto';
+            bottomNav.classList.remove('translate-y-full');
+
+            music.play().then(() => {
+                musicBtn.classList.remove('hidden');
+            }).catch(error => {
+                console.log("Audio play blocked:", error);
+                musicBtn.classList.remove('hidden');
+            });
+
+            autoScrollBtn.classList.remove('hidden');
+
+            setTimeout(() => {
+                cover.style.display = 'none';
+                reveal();
+                // Mulai auto-scroll otomatis SETELAH cover sepenuhnya hilang
+                startAutoScroll();
+            }, 1000);
+        }
+
+        function toggleMusic() {
+<!-- ... existing code ... -->
+            .catch(err => {
+                console.error('Error saat mengirim:', err);
+                btn.innerHTML = 'Gagal Mengirim. Coba Lagi';
+                btn.disabled = false;
+            });
+        });
+
+        // Fitur tambahan: Hentikan auto-scroll jika pengguna melakukan scroll manual
+        window.addEventListener('wheel', () => {
+            if (isAutoScrolling) stopAutoScroll();
+        }, { passive: true });
+
+        window.addEventListener('touchstart', () => {
+            if (isAutoScrolling) stopAutoScroll();
+        }, { passive: true });
+    </script>
+</body>
+</html>
+```                        scrollGallery: {
                             '0%': { transform: 'translateX(0)' },
                             '100%': { transform: 'translateX(-50%)' },
                         }
