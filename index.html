@@ -506,8 +506,8 @@
         function stepAutoScroll() {
             if (!isAutoScrolling) return;
 
-            // Kecepatan dinaikkan agar lebih cepat saat dibuka di HP / desktop
-            const scrollSpeed = window.innerWidth < 768 ? 3.8 : 4.5;
+            // Kecepatan 2x lebih cepat untuk HP dan Desktop
+            const scrollSpeed = window.innerWidth < 768 ? 16.0 : 10.0;
             window.scrollBy({ top: scrollSpeed, behavior: 'auto' });
             
             if ((window.innerHeight + window.pageYOffset) >= document.documentElement.scrollHeight - 5) {
