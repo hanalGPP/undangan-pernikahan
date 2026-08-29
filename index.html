@@ -91,19 +91,19 @@
             <source src="THE WEDDING OF (1).mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        <div class="absolute inset-0 bg-black/30 z-[1]"></div>
+        <div class="absolute inset-0 bg-black/15 z-[1]"></div>
 
-        <div class="relative z-10 m-4 p-6 md:p-10 max-w-lg w-full text-center gold-border rounded-2xl backdrop-blur-md bg-black/20 shadow-2xl flex flex-col items-center justify-center">
+        <div class="relative z-10 m-4 p-6 md:p-10 max-w-lg w-full text-center gold-border rounded-2xl backdrop-blur-[2px] bg-black/10 shadow-2xl flex flex-col items-center justify-center">
             <div class="text-wedding-gold text-2xl mb-2 opacity-90"><i class="fas fa-spa"></i></div>
-            <p class="text-wedding-light tracking-[0.3em] uppercase text-xs md:text-sm mb-2 font-semibold">THE WEDDING OF</p>
+            <p class="text-wedding-light tracking-[0.3em] uppercase text-xs md:text-sm mb-2 font-semibold drop-shadow">THE WEDDING OF</p>
             <h1 class="font-script text-5xl md:text-6xl lg:text-7xl text-wedding-light mb-2 drop-shadow-lg">Yadi <span class="text-wedding-gold">&</span> Lilis</h1>
             <div class="w-16 h-[1px] bg-wedding-gold my-3 mx-auto"></div>
-            <p class="text-wedding-light/90 font-serif text-base md:text-lg italic mb-5">11 & 13 September 2026</p>
+            <p class="text-wedding-light font-serif text-base md:text-lg italic mb-5 drop-shadow">11 & 13 September 2026</p>
 
-            <div class="bg-black/30 border border-wedding-gold/40 rounded-xl p-4 w-full max-w-[280px] mb-6 flex flex-col items-center shadow-lg">
-                <p class="text-wedding-light/80 text-xs uppercase tracking-widest mb-1 font-sans">Kepada Yth.</p>
-                <h3 id="cover-guest-name" class="text-wedding-gold font-serif text-2xl font-bold mb-1 break-words text-center w-full">Tamu Undangan</h3>
-                <p id="cover-guest-address" class="text-wedding-light/90 text-sm italic font-serif text-center break-words w-full">di Tempat</p>
+            <div class="bg-black/20 border border-wedding-gold/40 rounded-xl p-4 w-full max-w-[280px] mb-6 flex flex-col items-center shadow-lg backdrop-blur-sm">
+                <p class="text-wedding-light/90 text-xs uppercase tracking-widest mb-1 font-sans">Kepada Yth.</p>
+                <h3 id="cover-guest-name" class="text-wedding-gold font-serif text-2xl font-bold mb-1 break-words text-center w-full drop-shadow">Tamu Undangan</h3>
+                <p id="cover-guest-address" class="text-wedding-light text-sm italic font-serif text-center break-words w-full">di Tempat</p>
             </div>
 
             <button onclick="openInvitation()" class="px-8 py-3 bg-wedding-red/90 hover:bg-wedding-red text-wedding-light rounded-full border border-wedding-gold/50 transition-all duration-300 shadow-[0_0_15px_rgba(197,160,89,0.3)] flex items-center gap-2 group animate-bounce cursor-pointer">
@@ -197,6 +197,33 @@
                     <h2 class="font-script text-5xl md:text-6xl text-wedding-dark tracking-wide">Yadi <span class="text-wedding-gold">&</span> Lilis</h2>
                 </div>
 
+                <!-- GALERI MOMEN (DIPINDAH KE BAWAH NAMA YADI & LILIS) -->
+                <div class="py-8 w-full overflow-hidden reveal">
+                    <div class="text-center mb-10">
+                        <h2 class="font-script text-5xl md:text-6xl text-wedding-red mb-2">Galeri Momen</h2>
+                        <div class="w-24 h-1 bg-wedding-gold mx-auto rounded-full"></div>
+                    </div>
+                    <div class="relative w-full overflow-hidden pb-4">
+                        <div class="absolute inset-y-0 left-0 w-8 md:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+                        <div class="absolute inset-y-0 right-0 w-8 md:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+                        
+                        <div class="flex w-max animate-scroll-gallery hover:[animation-play-state:paused] cursor-pointer">
+                            <div class="flex gap-4 px-2">
+                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri1.jpeg" alt="Galeri 1" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+1'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri2.jpeg" alt="Galeri 2" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+2'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri3.jpeg" alt="Galeri 3" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+3'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri4.jpeg" alt="Galeri 4" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+4'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                            </div>
+                            <div class="flex gap-4 px-2">
+                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri1.jpeg" alt="Galeri 1" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+1'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri2.jpeg" alt="Galeri 2" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+2'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri3.jpeg" alt="Galeri 3" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+3'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                                <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri4.jpeg" alt="Galeri 4" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+4'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- BRIDE -->
                 <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16 reveal">
                     <div class="w-full md:w-1/2 flex flex-col items-center order-1 relative pt-8">
@@ -225,36 +252,6 @@
                     </div>
                 </div>
 
-            </div>
-        </section>
-
-        <!-- GALERI SECTION -->
-        <section id="galeri" class="py-16 bg-white overflow-hidden relative border-t border-b border-wedding-gold/20">
-            <div class="max-w-6xl mx-auto px-4 md:px-8">
-                <div class="text-center mb-10 reveal">
-                    <h2 class="font-script text-5xl md:text-6xl text-wedding-red mb-2">Galeri Momen</h2>
-                    <div class="w-24 h-1 bg-wedding-gold mx-auto rounded-full"></div>
-                </div>
-            </div>
-
-            <div class="relative w-full overflow-hidden reveal pb-4">
-                <div class="absolute inset-y-0 left-0 w-8 md:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-                <div class="absolute inset-y-0 right-0 w-8 md:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
-                
-                <div class="flex w-max animate-scroll-gallery hover:[animation-play-state:paused] cursor-pointer">
-                    <div class="flex gap-4 px-2">
-                        <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri1.jpeg" alt="Galeri 1" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+1'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                        <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri2.jpeg" alt="Galeri 2" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+2'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                        <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri3.jpeg" alt="Galeri 3" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+3'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                        <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri4.jpeg" alt="Galeri 4" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+4'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                    </div>
-                    <div class="flex gap-4 px-2">
-                        <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri1.jpeg" alt="Galeri 1" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+1'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                        <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri2.jpeg" alt="Galeri 2" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+2'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                        <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri3.jpeg" alt="Galeri 3" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+3'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                        <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri4.jpeg" alt="Galeri 4" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+4'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -447,7 +444,7 @@
         
         let isAutoScrolling = false;
         let scrollAnimFrame = null;
-        let lastTimestamp = null;
+        let lastScrollTime = 0;
 
         const weddingDate = new Date("September 11, 2026 08:00:00").getTime();
 
@@ -527,15 +524,18 @@
         function stepAutoScroll(timestamp) {
             if (!isAutoScrolling) return;
 
-            if (!lastTimestamp) lastTimestamp = timestamp;
-            const elapsed = timestamp - lastTimestamp;
+            if (!lastScrollTime) lastScrollTime = timestamp;
+            const deltaTime = timestamp - lastScrollTime;
+            lastScrollTime = timestamp;
 
-            // Smooth frame-rate independent increment (~2x speed with silky smooth delta calculation)
-            if (elapsed > 16) {
-                const scrollSpeed = window.innerWidth < 768 ? 0.35 : 0.28; 
-                window.scrollBy({ top: scrollSpeed * elapsed, behavior: 'auto' });
-                lastTimestamp = timestamp;
-            }
+            // Cap delta time to prevent giant jumps if tab loses focus
+            const cappedDelta = Math.min(deltaTime, 50);
+            
+            // Kecepatan 2x dengan pergerakan halus berbasis delta waktu untuk menghilangkan getar
+            const scrollSpeed = window.innerWidth < 768 ? 0.32 : 0.22; 
+            const scrollAmount = scrollSpeed * cappedDelta;
+
+            window.scrollBy({ top: scrollAmount, behavior: 'auto' });
             
             if ((window.innerHeight + window.pageYOffset) >= document.documentElement.scrollHeight - 5) {
                 stopAutoScroll();
@@ -547,7 +547,7 @@
         function startAutoScroll() {
             if (isAutoScrolling) return;
             isAutoScrolling = true;
-            lastTimestamp = null;
+            lastScrollTime = 0;
             document.getElementById('autoscroll-icon').className = "fas fa-pause text-lg";
             document.getElementById('autoscroll-btn').classList.add('bg-wedding-red', 'text-wedding-gold');
             document.getElementById('autoscroll-btn').classList.remove('bg-white', 'text-wedding-red');
@@ -558,7 +558,7 @@
 
         function stopAutoScroll() {
             isAutoScrolling = false;
-            lastTimestamp = null;
+            lastScrollTime = 0;
             if (scrollAnimFrame) cancelAnimationFrame(scrollAnimFrame);
             document.getElementById('autoscroll-icon').className = "fas fa-angles-down text-lg";
             document.getElementById('autoscroll-btn').classList.remove('bg-wedding-red', 'text-wedding-gold');
