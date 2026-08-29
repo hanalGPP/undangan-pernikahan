@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Library QRCode.js -->
+    <!-- QRCode Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <script>
@@ -58,16 +58,16 @@
         .reveal.active { opacity: 1; transform: translateY(0); }
         #cover-screen { transition: transform 1s ease-in-out, opacity 1s ease-in-out; }
         .hide-cover { transform: translateY(-100%); opacity: 0; }
-        .countdown-box { background: rgba(197, 160, 89, 0.25); backdrop-filter: blur(8px); border: 1px solid rgba(197, 160, 89, 0.4); }
+        .countdown-box { background: rgba(140, 122, 107, 0.75); backdrop-filter: blur(8px); border: 1px solid rgba(197, 160, 89, 0.4); }
+        .arch-frame { border-radius: 180px 180px 0px 0px; }
     </style>
 </head>
 <body class="font-sans text-wedding-dark antialiased">
 
     <audio id="bg-music" src="rungokno.mp3" preload="auto" loop></audio>
 
-    <!-- TOMBOL KONTROL MELAYANG (MUSIK & AUTO-SCROLL) -->
-    <div class="fixed bottom-24 right-6 z-40 flex flex-col gap-3">
-        <!-- Tombol Auto Scroll -->
+    <div class="fixed bottom-20 right-6 z-40 flex flex-col gap-3">
+        <!-- Tombol Auto Scroll Toggle -->
         <button id="autoscroll-btn" onclick="toggleAutoScroll()" class="w-12 h-12 bg-white text-wedding-red rounded-full shadow-lg flex items-center justify-center border-2 border-wedding-gold hidden cursor-pointer hover:scale-110 transition-transform" title="Toggle Auto Scroll">
             <i id="autoscroll-icon" class="fas fa-angles-down text-lg"></i>
         </button>
@@ -83,7 +83,7 @@
 
         <div class="relative z-10 m-4 p-6 md:p-10 max-w-lg w-full text-center gold-border rounded-2xl backdrop-blur-sm bg-black/30 shadow-2xl flex flex-col items-center justify-center">
             <div class="text-wedding-gold text-2xl mb-2 opacity-90"><i class="fas fa-spa"></i></div>
-            <p class="text-wedding-light tracking-[0.3em] uppercase text-xs md:text-sm mb-2 font-semibold">The Wedding Of</p>
+            <p class="text-wedding-light tracking-[0.3em] uppercase text-xs md:text-sm mb-2 font-semibold">THE WEDDING OF</p>
             <h1 class="font-script text-5xl md:text-6xl lg:text-7xl text-wedding-light mb-2 drop-shadow-lg">Yadi <span class="text-wedding-gold">&</span> Lilis</h1>
             <div class="w-16 h-[1px] bg-wedding-gold my-3 mx-auto"></div>
             <p class="text-wedding-light/90 font-serif text-base md:text-lg italic mb-5">11 & 13 September 2026</p>
@@ -102,20 +102,19 @@
         </div>
     </div>
 
-    <!-- BOTTOM NAVIGATION MENU -->
     <nav id="bottom-nav" class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md shadow-[0_-5px_15px_rgba(0,0,0,0.05)] z-50 transform translate-y-full transition-transform duration-500 border-t border-wedding-gold/30">
         <ul class="flex justify-around items-center h-16 text-[10px] md:text-xs font-sans font-semibold">
             <li><a href="#main-content" class="flex flex-col items-center text-wedding-red w-14"><i class="fas fa-home text-lg mb-1"></i> Utama</a></li>
             <li><a href="#mempelai" class="flex flex-col items-center text-gray-400 hover:text-wedding-gold w-14 transition-colors"><i class="fas fa-heart text-lg mb-1"></i> Mempelai</a></li>
             <li><a href="#galeri" class="flex flex-col items-center text-gray-400 hover:text-wedding-gold w-14 transition-colors"><i class="fas fa-images text-lg mb-1"></i> Galeri</a></li>
+            <li><a href="#save-the-date" class="flex flex-col items-center text-gray-400 hover:text-wedding-gold w-14 transition-colors"><i class="fas fa-calendar-alt text-lg mb-1"></i> Jadwal</a></li>
+            <li><a href="#titip-hadiah" class="flex flex-col items-center text-gray-400 hover:text-wedding-gold w-14 transition-colors"><i class="fas fa-gift text-lg mb-1"></i> Hadiah</a></li>
             <li><a href="#rsvp" class="flex flex-col items-center text-gray-400 hover:text-wedding-gold w-14 transition-colors"><i class="fas fa-envelope-open-text text-lg mb-1"></i> Ucapan</a></li>
-            <li><a href="#ticket-section" class="flex flex-col items-center text-gray-400 hover:text-wedding-gold w-14 transition-colors"><i class="fas fa-qrcode text-lg mb-1"></i> Tiket</a></li>
         </ul>
     </nav>
 
     <main id="main-content" class="relative bg-pattern min-h-screen pb-20">
-        
-        <!-- HERO SECTION DENGAN FOTO BACKGROUND & COUNTDOWN KOTAK -->
+        <!-- HERO SECTION -->
         <section class="relative h-[90vh] flex flex-col justify-between items-center text-center text-white px-4 py-12 overflow-hidden">
             <div class="absolute inset-0 z-0">
                 <img src="galeri1.jpeg" onerror="this.src='https://placehold.co/1200x800/1a1a1a/c5a059?text=Yadi+&+Lilis'" alt="Hero Wedding" class="w-full h-full object-cover">
@@ -149,25 +148,14 @@
             </div>
         </section>
 
-        <section class="py-20 px-6 text-center reveal">
-            <div class="max-w-3xl mx-auto">
-                <p class="font-serif italic text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-                    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri..."
-                </p>
-                <p class="font-sans font-semibold text-wedding-red text-sm tracking-widest">(QS. Ar-Rum: 21)</p>
-            </div>
-        </section>
-
-        <!-- MEMPELAI SECTION (MODEL ARCH PORTRAIT + CURVED THE GROOM / THE BRIDE) -->
+        <!-- MEMPELAI SECTION -->
         <section id="mempelai" class="py-20 px-4 md:px-8 bg-white relative overflow-hidden">
-            <div class="max-w-5xl mx-auto relative z-10 space-y-24">
+            <div class="max-w-5xl mx-auto relative z-10 space-y-20">
                 
-                <!-- GROOM (PENGANTIN PRIA) -->
+                <!-- GROOM -->
                 <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16 reveal">
-                    <!-- Teks Deskripsi Kiri -->
                     <div class="w-full md:w-1/2 text-center md:text-right space-y-3 order-2 md:order-1">
-                        <h4 class="font-script text-3xl text-wedding-gold">Muhammad Yadi</h4>
-                        <h3 class="font-serif font-bold text-3xl md:text-4xl text-wedding-dark">Muhammad Yadi</h3>
+                        <h3 class="font-script text-6xl md:text-7xl lg:text-8xl text-[#8B0000] font-bold">Muhammad Yadi</h3>
                         <div class="w-24 h-[1px] bg-wedding-dark/30 mx-auto md:ml-auto md:mr-0 my-2"></div>
                         <p class="font-serif text-sm text-gray-600 leading-relaxed">
                             Putra dari Pasangan<br>
@@ -184,48 +172,46 @@
                         </div>
                     </div>
 
-                    <!-- Foto Lengkung Kanan dengan SVG Text Melingkar "THE GROOM" -->
                     <div class="w-full md:w-1/2 flex flex-col items-center order-1 md:order-2 relative pt-12">
                         <div class="absolute top-0 z-20 pointer-events-none w-full flex justify-center">
-                            <svg viewBox="0 0 320 75" class="w-72 sm:w-80 md:w-84 h-16 overflow-visible">
-                                <path id="curveGroom" d="M 25,60 Q 160,-15 295,60" fill="transparent"/>
-                                <text class="font-sans font-bold tracking-[0.3em]" fill="#1A1A1A" font-size="22">
+                            <svg viewBox="0 0 320 60" class="w-64 sm:w-72 h-14 overflow-visible">
+                                <path id="curveGroom" d="M 20,45 Q 160,-10 300,45" fill="transparent"/>
+                                <text class="font-sans font-bold tracking-[0.25em]" fill="#1A1A1A" font-size="18">
                                     <textPath href="#curveGroom" startOffset="50%" text-anchor="middle">THE GROOM</textPath>
                                 </text>
                             </svg>
                         </div>
-                        <div class="w-64 sm:w-72 md:w-80 h-[380px] sm:h-[420px] rounded-t-[160px] overflow-hidden border-8 border-white shadow-2xl bg-gray-100 relative mt-2">
-                            <img src="yadi.png" alt="Muhammad Yadi" onerror="this.src='https://placehold.co/500x700/7A1315/F9F6F0?text=Yadi'" class="w-full h-full object-cover object-[center_top]">
+                        <div class="w-60 sm:w-70 md:w-76 h-[360px] sm:h-[400px] arch-frame overflow-hidden border-8 border-white shadow-2xl bg-[#7A1315] relative mt-2 flex items-center justify-center">
+                            <img src="yadi.png" alt="Muhammad Yadi" onerror="this.style.display='none'" class="w-full h-full object-cover object-[center_top]">
+                            <div class="absolute inset-0 flex items-center justify-center text-white font-serif text-3xl font-bold">Yadi</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- TENGAH: NAMA PASANGAN SCRIPT -->
-                <div class="text-center reveal py-4">
+                <!-- TENGAH -->
+                <div class="text-center reveal py-2">
                     <h2 class="font-script text-5xl md:text-6xl text-wedding-dark tracking-wide">Yadi <span class="text-wedding-gold">&</span> Lilis</h2>
                 </div>
 
-                <!-- BRIDE (PENGANTIN WANITA) -->
+                <!-- BRIDE -->
                 <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16 reveal">
-                    <!-- Foto Lengkung Kiri dengan SVG Text Melingkar "THE BRIDE" -->
                     <div class="w-full md:w-1/2 flex flex-col items-center relative order-1 pt-12">
                         <div class="absolute top-0 z-20 pointer-events-none w-full flex justify-center">
-                            <svg viewBox="0 0 320 75" class="w-72 sm:w-80 md:w-84 h-16 overflow-visible">
-                                <path id="curveBride" d="M 25,60 Q 160,-15 295,60" fill="transparent"/>
-                                <text class="font-sans font-bold tracking-[0.3em]" fill="#1A1A1A" font-size="22">
+                            <svg viewBox="0 0 320 60" class="w-64 sm:w-72 h-14 overflow-visible">
+                                <path id="curveBride" d="M 20,45 Q 160,-10 300,45" fill="transparent"/>
+                                <text class="font-sans font-bold tracking-[0.25em]" fill="#1A1A1A" font-size="18">
                                     <textPath href="#curveBride" startOffset="50%" text-anchor="middle">THE BRIDE</textPath>
                                 </text>
                             </svg>
                         </div>
-                        <div class="w-64 sm:w-72 md:w-80 h-[380px] sm:h-[420px] rounded-t-[160px] overflow-hidden border-8 border-white shadow-2xl bg-gray-100 relative mt-2">
-                            <img src="lilis.png" alt="Lilis Laili Fitria" onerror="this.src='https://placehold.co/500x700/7A1315/F9F6F0?text=Lilis'" class="w-full h-full object-cover object-[center_top]">
+                        <div class="w-60 sm:w-70 md:w-76 h-[360px] sm:h-[400px] arch-frame overflow-hidden border-8 border-white shadow-2xl bg-[#7A1315] relative mt-2 flex items-center justify-center">
+                            <img src="lilis.png" alt="Lilis Laili Fitria" onerror="this.style.display='none'" class="w-full h-full object-cover object-[center_top]">
+                            <div class="absolute inset-0 flex items-center justify-center text-white font-serif text-3xl font-bold">Lilis</div>
                         </div>
                     </div>
 
-                    <!-- Teks Deskripsi Kanan -->
                     <div class="w-full md:w-1/2 text-center md:text-left space-y-3 order-2">
-                        <h4 class="font-script text-3xl text-wedding-gold">Lilis Laili Fitria</h4>
-                        <h3 class="font-serif font-bold text-3xl md:text-4xl text-wedding-dark">Lilis Laili Fitria</h3>
+                        <h3 class="font-script text-6xl md:text-7xl lg:text-8xl text-[#8B0000] font-bold">Lilis Laili Fitria</h3>
                         <div class="w-24 h-[1px] bg-wedding-dark/30 mx-auto md:ml-0 md:mr-auto my-2"></div>
                         <p class="font-serif text-sm text-gray-600 leading-relaxed">
                             Putri dari Pasangan<br>
@@ -246,16 +232,15 @@
             </div>
         </section>
 
-        <!-- GALERI (AUTO SCROLL KANAN KE KIRI) -->
-        <section id="galeri" class="py-20 bg-white overflow-hidden relative">
+        <!-- GALERI MOMEN SECTION -->
+        <section id="galeri" class="py-16 bg-white overflow-hidden relative border-t border-b border-wedding-gold/20">
             <div class="max-w-6xl mx-auto px-4 md:px-8">
-                <div class="text-center mb-12 reveal">
+                <div class="text-center mb-10 reveal">
                     <h2 class="font-script text-5xl md:text-6xl text-wedding-red mb-2">Galeri Momen</h2>
                     <div class="w-24 h-1 bg-wedding-gold mx-auto rounded-full"></div>
                 </div>
             </div>
 
-            <!-- Auto Scrolling Marquee Gallery (Right to Left) -->
             <div class="relative w-full overflow-hidden reveal pb-4">
                 <div class="absolute inset-y-0 left-0 w-8 md:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
                 <div class="absolute inset-y-0 right-0 w-8 md:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
@@ -267,7 +252,6 @@
                         <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri3.jpeg" alt="Galeri 3" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+3'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
                         <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri4.jpeg" alt="Galeri 4" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+4'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
                     </div>
-                    <!-- Duplicate set for seamless infinite loop -->
                     <div class="flex gap-4 px-2">
                         <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri1.jpeg" alt="Galeri 1" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+1'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
                         <div class="w-48 sm:w-60 md:w-72 flex-none aspect-[3/4]"><img src="galeri2.jpeg" alt="Galeri 2" onerror="this.src='https://placehold.co/300x400/e2e8f0/475569?text=Foto+2'" class="w-full h-full object-cover rounded-xl shadow-lg border-2 border-wedding-gold/20"></div>
@@ -278,7 +262,134 @@
             </div>
         </section>
 
-        <!-- RSVP & TIKET BARCODE SECTION -->
+        <!-- SAVE THE DATE SECTION -->
+        <section id="save-the-date" class="py-20 px-4 md:px-8 bg-wedding-light relative overflow-hidden">
+            <div class="max-w-3xl mx-auto text-center reveal space-y-12">
+                <div>
+                    <h2 class="font-script text-5xl md:text-6xl text-wedding-gold mb-6">Save The Date</h2>
+                    <p class="font-serif text-lg text-gray-700 leading-relaxed mb-3 rtl text-center" dir="rtl">
+                        وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُمْ مِنْ أَنْفُسِكُمْ أَزْوَاجًا لِتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِقَوْمٍ يَتَفَكَّرُونَ
+                    </p>
+                    <p class="font-serif italic text-sm md:text-base text-gray-600 leading-relaxed mb-4">
+                        "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari (jenis) dirimu sendiri agar kamu merasa tenteram kepadanya. Dia menjadikan di antaramu rasa cinta dan kasih sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."
+                    </p>
+                    <p class="font-sans font-semibold text-wedding-red text-xs tracking-widest">- Ar-Rum - Ayat 21 -</p>
+                </div>
+
+                <!-- KARTU RESEPSI PERNIKAHAN -->
+                <div class="bg-white rounded-t-[160px] rounded-b-2xl shadow-xl p-8 md:p-12 border-2 border-wedding-gold/30 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-wedding-gold via-yellow-200 to-wedding-gold"></div>
+                    <h3 class="font-script text-4xl text-wedding-gold mb-2">Resepsi Pernikahan</h3>
+                    <p class="font-sans text-xs uppercase tracking-widest text-gray-500 mb-6 font-semibold">September</p>
+                    
+                    <div class="flex items-center justify-center gap-6 my-6">
+                        <div class="text-right">
+                            <span class="font-serif text-2xl md:text-3xl font-bold text-gray-700">Rabu</span>
+                        </div>
+                        <div class="h-16 w-[2px] bg-wedding-gold/50"></div>
+                        <div class="text-center">
+                            <span class="font-serif text-5xl md:text-6xl font-bold text-gray-700">11</span>
+                        </div>
+                        <div class="h-16 w-[2px] bg-wedding-gold/50"></div>
+                        <div class="text-left">
+                            <span class="font-serif text-2xl md:text-3xl font-bold text-gray-700">2026</span>
+                        </div>
+                    </div>
+
+                    <p class="font-sans font-bold text-sm text-wedding-dark mb-1">Pukul 08:00 WIB - Selesai</p>
+                    <p class="font-serif text-sm text-gray-600 mb-6 italic">Dsn. Balun Ds. Sidodadi Rt 01 / Rw 01, Kec. Candi Kab. Sidoarjo</p>
+                </div>
+
+                <!-- KARTU AKAD NIKAH -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 border-2 border-wedding-gold/30 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-wedding-gold via-yellow-200 to-wedding-gold"></div>
+                    <h3 class="font-script text-4xl text-wedding-gold mb-2">Akad Nikah</h3>
+                    <p class="font-sans text-xs uppercase tracking-widest text-gray-500 mb-6 font-semibold">September</p>
+                    
+                    <div class="flex items-center justify-center gap-6 my-6">
+                        <div class="text-right">
+                            <span class="font-serif text-2xl md:text-3xl font-bold text-gray-700">Minggu</span>
+                        </div>
+                        <div class="h-16 w-[2px] bg-wedding-gold/50"></div>
+                        <div class="text-center">
+                            <span class="font-serif text-5xl md:text-6xl font-bold text-gray-700">13</span>
+                        </div>
+                        <div class="h-16 w-[2px] bg-wedding-gold/50"></div>
+                        <div class="text-left">
+                            <span class="font-serif text-2xl md:text-3xl font-bold text-gray-700">2026</span>
+                        </div>
+                    </div>
+
+                    <p class="font-sans font-bold text-sm text-wedding-dark mb-1">Pukul 08:00 WIB - Selesai</p>
+                    <p class="font-serif text-sm text-gray-600 mb-8 italic">Ds. Randu Padangan Rt 13 / Rw 05, Kec. Menganti Kab. Gresik</p>
+
+                    <a href="https://www.google.com/maps/place/7%C2%B016'22.3%22S+112%C2%B036'25.7%22E/@-7.2728853,112.6071133,797m/data=!3m1!1e3!4m4!3m3!8m2!3d-7.272865!4d112.607151?entry=ttu&g_ep=EgoyMDI2MDgyNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="inline-block px-6 py-3 bg-[#8C7A6B] hover:bg-[#736355] text-white rounded-xl text-xs font-sans font-semibold tracking-wider uppercase shadow-md transition-all">
+                        <i class="fas fa-map-marker-alt mr-1"></i> Maps Lokasi Acara
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- TITIP HADIAH SECTION -->
+        <section id="titip-hadiah" class="py-20 px-4 md:px-8 bg-white relative overflow-hidden">
+            <div class="max-w-2xl mx-auto text-center reveal space-y-8">
+                <div>
+                    <h2 class="font-script text-5xl md:text-6xl text-wedding-gold mb-4">Titip Hadiah</h2>
+                    <p class="font-serif text-sm md:text-base text-gray-600 leading-relaxed max-w-xl mx-auto">
+                        Doa restu Bapak/Ibu sekalian merupakan karunia yang sangat berarti bagi kami. Dan jika memberi merupakan ungkapan tanda kasih, Bapak/Ibu dapat memberi kado secara cashless. Terima kasih
+                    </p>
+                </div>
+
+                <!-- LIST KARTU REKENING -->
+                <div class="space-y-4 text-left">
+                    <!-- Rekening 1: BCA -->
+                    <div class="bg-gradient-to-br from-gray-100 to-gray-200 border border-gray-300 rounded-2xl p-6 shadow-md relative overflow-hidden">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-9 bg-yellow-600/30 rounded-md border border-yellow-500/50 flex items-center justify-center shadow-inner">
+                                <div class="w-8 h-6 border border-yellow-700/40 rounded-sm grid grid-cols-2 gap-1 p-0.5">
+                                    <div class="bg-yellow-800/30 rounded-2xs"></div>
+                                    <div class="bg-yellow-800/30 rounded-2xs"></div>
+                                </div>
+                            </div>
+                            <span class="font-bold tracking-wider text-blue-900 text-lg">BCA</span>
+                        </div>
+                        <div class="mb-4">
+                            <p id="acc-1" class="font-mono text-xl md:text-2xl font-bold text-wedding-dark tracking-wider">12345678</p>
+                            <p class="font-serif text-sm text-gray-700">Muhammad Yadi</p>
+                        </div>
+                        <div class="flex justify-end">
+                            <button onclick="copyToClipboard('12345678', this)" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg text-xs font-sans flex items-center gap-1.5 shadow transition-all cursor-pointer">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Rekening 2: BRI -->
+                    <div class="bg-gradient-to-br from-gray-100 to-gray-200 border border-gray-300 rounded-2xl p-6 shadow-md relative overflow-hidden">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="w-12 h-9 bg-yellow-600/30 rounded-md border border-yellow-500/50 flex items-center justify-center shadow-inner">
+                                <div class="w-8 h-6 border border-yellow-700/40 rounded-sm grid grid-cols-2 gap-1 p-0.5">
+                                    <div class="bg-yellow-800/30 rounded-2xs"></div>
+                                    <div class="bg-yellow-800/30 rounded-2xs"></div>
+                                </div>
+                            </div>
+                            <span class="font-bold tracking-wider text-blue-800 text-lg">BRI</span>
+                        </div>
+                        <div class="mb-4">
+                            <p id="acc-2" class="font-mono text-xl md:text-2xl font-bold text-wedding-dark tracking-wider">9876543210</p>
+                            <p class="font-serif text-sm text-gray-700">Lilis Laili Fitria</p>
+                        </div>
+                        <div class="flex justify-end">
+                            <button onclick="copyToClipboard('9876543210', this)" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg text-xs font-sans flex items-center gap-1.5 shadow transition-all cursor-pointer">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP SECTION -->
         <section id="rsvp" class="py-20 px-4 md:px-8 bg-wedding-light relative">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-12 reveal">
@@ -314,7 +425,6 @@
                         </form>
                     </div>
 
-                    <!-- TIKET BARCODE DINAMIS (Muncul setelah submit) -->
                     <div id="ticket-section" class="hidden m-6 md:m-10 bg-white border-2 border-wedding-gold/30 rounded-2xl p-8 shadow-xl relative overflow-hidden text-center transform transition-all duration-500">
                         <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-wedding-gold via-yellow-200 to-wedding-gold"></div>
                         <p class="text-gray-500 text-sm uppercase tracking-widest mb-2 font-sans">Tiket Kehadiran</p>
@@ -341,8 +451,8 @@
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzX70lSs6ASMfStXi_pHEBWhcx5jIlP1mbtoD_pX5iN6f8KhxMGR2UBqgTTu6XCTh6kag/exec';
         
-        let autoScrollInterval = null;
         let isAutoScrolling = false;
+        let scrollAnimFrame = null;
 
         const weddingDate = new Date("September 11, 2026 08:00:00").getTime();
 
@@ -387,26 +497,64 @@
             loadMessages();
         });
 
-        // Kontrol Auto Scroll
+        function copyToClipboard(text, btn) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                    btn.classList.add('bg-green-600');
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                        btn.classList.remove('bg-green-600');
+                    }, 2000);
+                });
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                    btn.classList.add('bg-green-600');
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                        btn.classList.remove('bg-green-600');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Gagal menyalin', err);
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        function stepAutoScroll() {
+            if (!isAutoScrolling) return;
+
+            window.scrollBy({ top: 1.2, behavior: 'auto' });
+            
+            if ((window.innerHeight + window.pageYOffset) >= document.documentElement.scrollHeight - 5) {
+                stopAutoScroll();
+            } else {
+                scrollAnimFrame = requestAnimationFrame(stepAutoScroll);
+            }
+        }
+
         function startAutoScroll() {
-            if (autoScrollInterval) clearInterval(autoScrollInterval);
+            if (isAutoScrolling) return;
             isAutoScrolling = true;
             document.getElementById('autoscroll-icon').className = "fas fa-pause text-lg";
             document.getElementById('autoscroll-btn').classList.add('bg-wedding-red', 'text-wedding-gold');
             document.getElementById('autoscroll-btn').classList.remove('bg-white', 'text-wedding-red');
 
-            autoScrollInterval = setInterval(() => {
-                if (!isAutoScrolling) return;
-                window.scrollBy({ top: 2, behavior: 'auto' });
-                if ((window.innerHeight + window.pageYOffset) >= document.documentElement.scrollHeight - 5) {
-                    stopAutoScroll();
-                }
-            }, 30);
+            if (scrollAnimFrame) cancelAnimationFrame(scrollAnimFrame);
+            scrollAnimFrame = requestAnimationFrame(stepAutoScroll);
         }
 
         function stopAutoScroll() {
             isAutoScrolling = false;
-            if (autoScrollInterval) clearInterval(autoScrollInterval);
+            if (scrollAnimFrame) cancelAnimationFrame(scrollAnimFrame);
             document.getElementById('autoscroll-icon').className = "fas fa-angles-down text-lg";
             document.getElementById('autoscroll-btn').classList.remove('bg-wedding-red', 'text-wedding-gold');
             document.getElementById('autoscroll-btn').classList.add('bg-white', 'text-wedding-red');
