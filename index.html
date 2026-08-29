@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Undangan Pernikahan: Yadi & Lilis</title>
+    <title>The Wedding Of Yadi & Lilis</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,17 +67,14 @@
     <audio id="bg-music" src="rungokno.mp3" preload="auto" loop></audio>
 
     <div class="fixed bottom-20 right-6 z-40 flex flex-col gap-3">
-        <!-- Tombol Auto Scroll Toggle -->
         <button id="autoscroll-btn" onclick="toggleAutoScroll()" class="w-12 h-12 bg-white text-wedding-red rounded-full shadow-lg flex items-center justify-center border-2 border-wedding-gold hidden cursor-pointer hover:scale-110 transition-transform" title="Toggle Auto Scroll">
             <i id="autoscroll-icon" class="fas fa-angles-down text-lg"></i>
         </button>
-        <!-- Tombol Musik -->
         <button id="music-btn" onclick="toggleMusic()" class="w-12 h-12 bg-wedding-red text-wedding-gold rounded-full shadow-lg flex items-center justify-center border-2 border-wedding-gold hidden animate-spin-slow cursor-pointer hover:scale-110 transition-transform" title="Toggle Music">
             <i id="music-icon" class="fas fa-music text-lg"></i>
         </button>
     </div>
 
-    <!-- COVER SCREEN -->
     <div id="cover-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center cover-bg bg-pattern overflow-y-auto py-8">
         <div class="absolute inset-0 bg-black/40"></div>
 
@@ -148,14 +145,13 @@
             </div>
         </section>
 
-        <!-- MEMPELAI SECTION -->
         <section id="mempelai" class="py-20 px-4 md:px-8 bg-white relative overflow-hidden">
             <div class="max-w-5xl mx-auto relative z-10 space-y-20">
                 
                 <!-- GROOM -->
                 <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16 reveal">
                     <div class="w-full md:w-1/2 text-center md:text-right space-y-3 order-2 md:order-1">
-                        <h3 class="font-script text-6xl md:text-7xl lg:text-8xl text-[#8B0000] font-bold">Muhammad Yadi</h3>
+                        <h3 class="font-script text-7xl md:text-8xl lg:text-9xl text-[#8B0000] font-bold">Muhammad Yadi</h3>
                         <div class="w-24 h-[1px] bg-wedding-dark/30 mx-auto md:ml-auto md:mr-0 my-2"></div>
                         <p class="font-serif text-sm text-gray-600 leading-relaxed">
                             Putra dari Pasangan<br>
@@ -172,18 +168,10 @@
                         </div>
                     </div>
 
-                    <div class="w-full md:w-1/2 flex flex-col items-center order-1 md:order-2 relative pt-12">
-                        <div class="absolute top-0 z-20 pointer-events-none w-full flex justify-center">
-                            <svg viewBox="0 0 320 60" class="w-64 sm:w-72 h-14 overflow-visible">
-                                <path id="curveGroom" d="M 20,45 Q 160,-10 300,45" fill="transparent"/>
-                                <text class="font-sans font-bold tracking-[0.25em]" fill="#1A1A1A" font-size="18">
-                                    <textPath href="#curveGroom" startOffset="50%" text-anchor="middle">THE GROOM</textPath>
-                                </text>
-                            </svg>
-                        </div>
-                        <div class="w-60 sm:w-70 md:w-76 h-[360px] sm:h-[400px] arch-frame overflow-hidden border-8 border-white shadow-2xl bg-[#7A1315] relative mt-2 flex items-center justify-center">
+                    <div class="w-full md:w-1/2 flex flex-col items-center order-1 md:order-2 relative pt-8">
+                        <div class="text-center font-serif text-xs md:text-sm tracking-[0.3em] uppercase text-wedding-dark font-bold mb-3">THE GROOM</div>
+                        <div class="w-60 sm:w-70 md:w-76 h-[360px] sm:h-[400px] arch-frame overflow-hidden border-8 border-white shadow-2xl bg-[#7A1315] relative flex items-center justify-center">
                             <img src="yadi.png" alt="Muhammad Yadi" onerror="this.style.display='none'" class="w-full h-full object-cover object-[center_top]">
-                            <div class="absolute inset-0 flex items-center justify-center text-white font-serif text-3xl font-bold">Yadi</div>
                         </div>
                     </div>
                 </div>
@@ -195,23 +183,15 @@
 
                 <!-- BRIDE -->
                 <div class="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16 reveal">
-                    <div class="w-full md:w-1/2 flex flex-col items-center relative order-1 pt-12">
-                        <div class="absolute top-0 z-20 pointer-events-none w-full flex justify-center">
-                            <svg viewBox="0 0 320 60" class="w-64 sm:w-72 h-14 overflow-visible">
-                                <path id="curveBride" d="M 20,45 Q 160,-10 300,45" fill="transparent"/>
-                                <text class="font-sans font-bold tracking-[0.25em]" fill="#1A1A1A" font-size="18">
-                                    <textPath href="#curveBride" startOffset="50%" text-anchor="middle">THE BRIDE</textPath>
-                                </text>
-                            </svg>
-                        </div>
-                        <div class="w-60 sm:w-70 md:w-76 h-[360px] sm:h-[400px] arch-frame overflow-hidden border-8 border-white shadow-2xl bg-[#7A1315] relative mt-2 flex items-center justify-center">
+                    <div class="w-full md:w-1/2 flex flex-col items-center order-1 relative pt-8">
+                        <div class="text-center font-serif text-xs md:text-sm tracking-[0.3em] uppercase text-wedding-dark font-bold mb-3">THE BRIDE</div>
+                        <div class="w-60 sm:w-70 md:w-76 h-[360px] sm:h-[400px] arch-frame overflow-hidden border-8 border-white shadow-2xl bg-[#7A1315] relative flex items-center justify-center">
                             <img src="lilis.png" alt="Lilis Laili Fitria" onerror="this.style.display='none'" class="w-full h-full object-cover object-[center_top]">
-                            <div class="absolute inset-0 flex items-center justify-center text-white font-serif text-3xl font-bold">Lilis</div>
                         </div>
                     </div>
 
                     <div class="w-full md:w-1/2 text-center md:text-left space-y-3 order-2">
-                        <h3 class="font-script text-6xl md:text-7xl lg:text-8xl text-[#8B0000] font-bold">Lilis Laili Fitria</h3>
+                        <h3 class="font-script text-7xl md:text-8xl lg:text-9xl text-[#8B0000] font-bold">Lilis Laili Fitria</h3>
                         <div class="w-24 h-[1px] bg-wedding-dark/30 mx-auto md:ml-0 md:mr-auto my-2"></div>
                         <p class="font-serif text-sm text-gray-600 leading-relaxed">
                             Putri dari Pasangan<br>
@@ -232,7 +212,6 @@
             </div>
         </section>
 
-        <!-- GALERI MOMEN SECTION -->
         <section id="galeri" class="py-16 bg-white overflow-hidden relative border-t border-b border-wedding-gold/20">
             <div class="max-w-6xl mx-auto px-4 md:px-8">
                 <div class="text-center mb-10 reveal">
@@ -262,7 +241,6 @@
             </div>
         </section>
 
-        <!-- SAVE THE DATE SECTION -->
         <section id="save-the-date" class="py-20 px-4 md:px-8 bg-wedding-light relative overflow-hidden">
             <div class="max-w-3xl mx-auto text-center reveal space-y-12">
                 <div>
@@ -277,7 +255,7 @@
                 </div>
 
                 <!-- KARTU RESEPSI PERNIKAHAN -->
-                <div class="bg-white rounded-t-[160px] rounded-b-2xl shadow-xl p-8 md:p-12 border-2 border-wedding-gold/30 relative overflow-hidden">
+                <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 border-2 border-wedding-gold/30 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-wedding-gold via-yellow-200 to-wedding-gold"></div>
                     <h3 class="font-script text-4xl text-wedding-gold mb-2">Resepsi Pernikahan</h3>
                     <p class="font-sans text-xs uppercase tracking-widest text-gray-500 mb-6 font-semibold">September</p>
@@ -297,7 +275,7 @@
                     </div>
 
                     <p class="font-sans font-bold text-sm text-wedding-dark mb-1">Pukul 08:00 WIB - Selesai</p>
-                    <p class="font-serif text-sm text-gray-600 mb-6 italic">Dsn. Balun Ds. Sidodadi Rt 01 / Rw 01, Kec. Candi Kab. Sidoarjo</p>
+                    <p class="font-serif text-sm text-gray-600 mb-2 italic">Dsn. Balun Ds. Sidodadi Rt 01 / Rw 01, Kec. Candi Kab. Sidoarjo</p>
                 </div>
 
                 <!-- KARTU AKAD NIKAH -->
@@ -330,7 +308,6 @@
             </div>
         </section>
 
-        <!-- TITIP HADIAH SECTION -->
         <section id="titip-hadiah" class="py-20 px-4 md:px-8 bg-white relative overflow-hidden">
             <div class="max-w-2xl mx-auto text-center reveal space-y-8">
                 <div>
@@ -342,7 +319,6 @@
 
                 <!-- LIST KARTU REKENING -->
                 <div class="space-y-4 text-left">
-                    <!-- Rekening 1: BCA -->
                     <div class="bg-gradient-to-br from-gray-100 to-gray-200 border border-gray-300 rounded-2xl p-6 shadow-md relative overflow-hidden">
                         <div class="flex justify-between items-start mb-6">
                             <div class="w-12 h-9 bg-yellow-600/30 rounded-md border border-yellow-500/50 flex items-center justify-center shadow-inner">
@@ -364,7 +340,6 @@
                         </div>
                     </div>
 
-                    <!-- Rekening 2: BRI -->
                     <div class="bg-gradient-to-br from-gray-100 to-gray-200 border border-gray-300 rounded-2xl p-6 shadow-md relative overflow-hidden">
                         <div class="flex justify-between items-start mb-6">
                             <div class="w-12 h-9 bg-yellow-600/30 rounded-md border border-yellow-500/50 flex items-center justify-center shadow-inner">
@@ -389,7 +364,6 @@
             </div>
         </section>
 
-        <!-- RSVP SECTION -->
         <section id="rsvp" class="py-20 px-4 md:px-8 bg-wedding-light relative">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-12 reveal">
@@ -532,7 +506,8 @@
         function stepAutoScroll() {
             if (!isAutoScrolling) return;
 
-            window.scrollBy({ top: 1.2, behavior: 'auto' });
+            // Dipercepat dan tetap memungkinkan scroll manual
+            window.scrollBy({ top: 4.5, behavior: 'auto' });
             
             if ((window.innerHeight + window.pageYOffset) >= document.documentElement.scrollHeight - 5) {
                 stopAutoScroll();
