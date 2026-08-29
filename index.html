@@ -447,6 +447,7 @@
         
         let isAutoScrolling = false;
         let scrollAnimFrame = null;
+        let lastTimestamp = null;
 
         const weddingDate = new Date("September 11, 2026 08:00:00").getTime();
 
@@ -523,12 +524,18 @@
             }
         }
 
-        function stepAutoScroll() {
+        function stepAutoScroll(timestamp) {
             if (!isAutoScrolling) return;
 
-            // Kecepatan 2x lipat lebih cepat dan responsif
-            const scrollSpeed = window.innerWidth < 768 ? 15.0 : 10.0;
-            window.scrollBy({ top: scrollSpeed, behavior: 'auto' });
+            if (!lastTimestamp) lastTimestamp = timestamp;
+            const elapsed = timestamp - lastTimestamp;
+
+            // Smooth frame-rate independent increment (~2x speed with silky smooth delta calculation)
+            if (elapsed > 16) {
+                const scrollSpeed = window.innerWidth < 768 ? 0.35 : 0.28; 
+                window.scrollBy({ top: scrollSpeed * elapsed, behavior: 'auto' });
+                lastTimestamp = timestamp;
+            }
             
             if ((window.innerHeight + window.pageYOffset) >= document.documentElement.scrollHeight - 5) {
                 stopAutoScroll();
@@ -540,6 +547,7 @@
         function startAutoScroll() {
             if (isAutoScrolling) return;
             isAutoScrolling = true;
+            lastTimestamp = null;
             document.getElementById('autoscroll-icon').className = "fas fa-pause text-lg";
             document.getElementById('autoscroll-btn').classList.add('bg-wedding-red', 'text-wedding-gold');
             document.getElementById('autoscroll-btn').classList.remove('bg-white', 'text-wedding-red');
@@ -550,6 +558,7 @@
 
         function stopAutoScroll() {
             isAutoScrolling = false;
+            lastTimestamp = null;
             if (scrollAnimFrame) cancelAnimationFrame(scrollAnimFrame);
             document.getElementById('autoscroll-icon').className = "fas fa-angles-down text-lg";
             document.getElementById('autoscroll-btn').classList.remove('bg-wedding-red', 'text-wedding-gold');
